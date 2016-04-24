@@ -1,0 +1,17 @@
+export(
+"consExcel",
+"culf",
+"Evaluation1",
+"fix.gold",
+"mydictionary",
+"prepareData",
+"squareN",
+"Symmetrization",
+"word_alignIBM1")
+
+import("data.table", "openxlsx", "quanteda")
+
+importFrom("utils", "fix", "relist")
+
+S3method(print, alignment)
+S3method(print, symmet)
