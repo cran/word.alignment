@@ -42,4 +42,3 @@ ef = c(3,2,1,5)
 n_row = 4
 squareN (fe, ef, n_row)
 }
-

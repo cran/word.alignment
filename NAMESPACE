@@ -1,8 +1,9 @@
 export(
-"consExcel",
+"align_test.set",
+"cons.agn",
 "culf",
 "Evaluation1",
-"fix.gold",
+"ExcelToR",
 "mydictionary",
 "prepareData",
 "squareN",
@@ -15,3 +16,4 @@ importFrom("utils", "fix", "relist")
 
 S3method(print, alignment)
 S3method(print, symmet)
+

@@ -19,19 +19,19 @@ a character string.
 an integer. Number of characters that we want to convert.
 }
   \item{first}{
-logical. If \samp{TRUE}, it converts the n first characters into lowercase.
+logical. If \code{TRUE}, it converts the n first characters into lowercase.
 }
   \item{second}{
-logical. If \samp{TRUE}, it checks if the second letter of \samp{x} is uppercase, the whole word will be converted to lower.
+logical. If \code{TRUE}, it checks if the second letter of \code{x} is uppercase, the whole word will be converted to lower.
 }
   \item{lower}{
-logical. If \samp{TRUE}, it works similar to \samp{tolower} in base R.
+logical. If \code{TRUE}, it works similar to \code{tolower} in base R.
 }
 }
 \details{
-It is a function to convert some uppercase letters  into lowercase for which words with uppercase second letter. If \samp{tolower} in base R is used, it will be sometimes created a problem for proper nouns. Because, as we know, a name or proper noun starts with capital letter and we do not want to convert them into lowercase. But sometimes there are some words which are not a name or proper noun and displayed in capital letters. These words are the target of this function.
+It is a function to convert some uppercase letters  into lowercase for which words with uppercase second letter. If \code{\link{tolower}} in base R is used, it will be sometimes created a problem for proper nouns. Because, as we know, a name or proper noun starts with capital letter and we do not want to convert them into lowercase. But sometimes there are some words which are not a name or proper noun and displayed in capital letters. These words are the target of this function.
 
-If we have a text of several sentences and we want to convert  the first n letters of every sentence to lowercase, separately. We have to split text to sentences, furthermore we should consider \samp{first=TRUE} and apply the function for each sentence. (see the examples below)
+If we have a text of several sentences and we want to convert  the first n letters of every sentence to lowercase, separately. We have to split text to sentences, furthermore we should consider \code{first=TRUE} and apply the function for each sentence (see the examples below).
 
 If we have a list, it works fine.
 }
@@ -46,16 +46,16 @@ A character string.
 Neda Daneshgar and Majid Sarmad.
 }
 \note{
-Because of all sentences begin with uppercase letters, \samp{first=TRUE} is considered  as a default. But, if the second character of a word be capital, it is usually
-concluded that all its characters are capital. In this case, you can consider \samp{second=TRUE}. Of course, there are some exceptations in these cases that they can be ignored.(see the examples below)
+Because of all sentences begin with uppercase letters, \code{first=TRUE} is considered  as a default. But, if the second character of a word be capital, it is usually
+concluded that all its characters are capital. In this case, you can consider \code{second=TRUE}. Of course, there are some exceptations in these cases that they can be ignored (see the examples below).
 
-In general, if there are not a lot of proper nouns in your text string, we suggest you to use \samp{tolower} in base R. As an ability of this function, \samp{lower} is considered as a third argument.
+In general, if there are not a lot of proper nouns in your text string, we suggest you to use \code{\link{tolower}} in base R. As an ability of this function, \code{lower} is considered as a third argument.
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{tolower}
+\code{\link{tolower}}
 }
 \examples{
 # x is a list

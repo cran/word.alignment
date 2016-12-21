@@ -8,11 +8,12 @@ Building an Automatic Bilingual Dictionary
 It builds an automatic bilingual dictionary of two languages based on given sentence-aligned parallel corpus.
 }
 \usage{
-mydictionary (file_train1,file_train2, 
-              nrec = -1, iter = 15, prob = 0.8, 
-              minlen=5, maxlen = 40, ul_s = FALSE, ul_t = TRUE, 
-              lang1 = 'Farsi', lang2 = 'English', removePt = TRUE, 
-              dtfile = NULL, f1 = 'fa', e1 = 'en')
+mydictionary(file_train1, file_train2, 
+             nrec = -1, iter = 15, prob = 0.8, 
+             minlen = 5, maxlen = 40, ul_s = FALSE, ul_t = TRUE, 
+             lang1 = "Farsi", lang2 = "English", removePt = TRUE, 
+             dtfile_path = NULL, f1 = "fa", e1 = "en", 
+             result_file = "mydictionaryResults")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -23,10 +24,10 @@ the name of source language file in training set.
 the name of target language file in training set.
 }
   \item{nrec}{
-number of sentences to be read.If  -1, it considers all sentences.
+the number of sentences to be read.If  -1, it considers all sentences.
 }
   \item{iter}{
-number of  iterations for IBM Model 1.
+the number of  iterations for IBM Model 1.
 }
   \item{prob}{
 the minimum word translation probanility.
@@ -38,10 +39,10 @@ a minimum length of sentences.
 a maximum length of sentences.
 }
   \item{ul_s}{
-logical. If \samp{TRUE}, it will convert the first character of target language's  sentences. When source language is an Arabic script, it can be \samp{FALSE}.
+logical. If \code{TRUE}, it will convert the first character of target language's  sentences. When source language is an Arabic script, it can be \code{FALSE}.
 }
   \item{ul_t}{
-logical. If \samp{TRUE}, it will convert the first character of source language's sentences. When target language is an Arabic script, it can be \samp{FALSE}.
+logical. If \code{TRUE}, it will convert the first character of source language's sentences. When target language is an Arabic script, it can be \code{FALSE}.
 }
   \item{lang1}{
 source language's name in mydictionary.
@@ -50,22 +51,27 @@ source language's name in mydictionary.
 traget language's name in mydictionary.
 }
   \item{removePt}{
-logical. If \samp{TRUE}, it removes all punctuation marks.
+logical. If \code{TRUE}, it removes all punctuation marks.
 }
-  \item{dtfile}{
-if \samp{NULL}, we  already did not save data.table (dd1) and it has to built. If an address exists,  means that data.table (dd1)  has already saved  and we want to use it.
+  \item{dtfile_path}{
+if \code{NULL} (usually for the first time), a data.table will be created contaning cross words of all sentences with their matched probabilities. It saves into a file named as a combination of \code{f1}, \code{e1}, \code{nrec} and \code{iter} as "f1.e1.nrec.iter.RData".
+
+If specific file name is set, it will be read and continue the rest of the function, i.e. : finding dictionary of two given languages.
 }
   \item{f1}{
-it is a notation for the source language (default = \samp{'fa'}).
+it is a notation for the source language (default = \code{'fa'}).
 }
   \item{e1}{
-it is a notation for the target language (default = \samp{'en'}).
+it is a notation for the target language (default = \code{'en'}).
+}
+  \item{result_file}{
+the output results file name.
 }
 }
 \details{
-The results depend on the corpus. As an example, we used English-Persian parallel corpus named Mizan which consists of more than 1,000,000 sentence pairs with a size of 170 Mb. For the 10,000 first sentences, we have a nice dictionary. It just takes 1.356784 mins using an usual computer. The results can be found at 
+The results depend on the corpus. As an example, we have used English-Persian parallel corpus named Mizan which consists of more than 1,000,000 sentence pairs with a size of 170 Mb. For the 10,000 first sentences, we have a nice dictionary. It just takes 1.356784 mins using an ordinary computer. The results can be found at 
 
-\code{http://www.um.ac.ir/~sarmad/word.a/mydictionary.pdf}
+\url{http://www.um.ac.ir/~sarmad/word.a/mydictionary.pdf}
 }
 \value{
 A list.
@@ -79,20 +85,26 @@ A list.
 \references{
 Supreme Council of Information and Communication Technology. (2013), Mizan English-Persian Parallel Corpus. Tehran, I.R. Iran. Retrieved from http://dadegan.ir/catalog/mizan.
 
-http://statmt.org/europarl/v7/bg-en.tgz
+\url{http://statmt.org/europarl/v7/bg-en.tgz}
 }
 \author{
 Neda Daneshgar and Majid Sarmad.
 }
 \note{
 Note that we have a memory restriction and just special computers with high cpu and big ram can allocate the vectors of this function. Of course, it depends on corpus size.
+
+In addition, if \code{dtfile_path = NULL}, the following question will be asked:
+
+"Are you sure that you want to run the word_alignIBM1 function (It takes time)? (Yes/ No: if you want to specify word alignment path, please press 'No'.)
+
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \examples{
-#Since the extraction of  bg-en.tgz in Europarl corpus is time consuming, 
-#so the aforementioned unzip files have been exported to http://www.um.ac.ir/~sarmad/... .
+# Since the extraction of  bg-en.tgz in Europarl corpus is time consuming, 
+# so the aforementioned unzip files have been temporarily exported to 
+# http://www.um.ac.ir/~sarmad/... .
 
 \dontrun{
 

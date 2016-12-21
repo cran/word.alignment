@@ -1,20 +1,18 @@
 \name{word_alignIBM1}
 \alias{word_alignIBM1}
-
 \alias{print.alignment}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Computing One-to-Many Word Alignment Using IBM Model 1 for a Given Parallel Corpus
 }
 \description{
-For a given sentence-aligned parallel corpus, it aligns words in each sentence pair. Moreover, it calculates expected length and vocabulary size of each language (source and taget language) and also shows word translation probability as a data.table.
+For a given sentence-aligned parallel corpus, it aligns words in each sentence pair. Moreover, it calculates the expected length and vocabulary size of each language (source and taget language) and also shows word translation probability as a data.table.
 }
 \usage{
 word_alignIBM1(file_train1, file_train2, 
-              nrec = -1, iter = 4, minlen = 5, 
-              maxlen = 40, ul_s = FALSE, ul_t = TRUE, 
-              removePt = TRUE, all = FALSE, display = c("word1", "number"), 
-              dtfile = NULL, f1 = "fa", e1 = "en", sym = FALSE, input = FALSE)
+              nrec = -1, iter = 4, minlen = 5, maxlen = 40, 
+              ul_s = FALSE, ul_t = TRUE, removePt = TRUE, all = FALSE, 
+              dtfile_path = NULL, f1 = "fa", e1 = "en", 
+              result_file = "myResultIBM1", input = FALSE)
 
 \method{print}{alignment}(x, ...)
 }
@@ -24,13 +22,13 @@ word_alignIBM1(file_train1, file_train2,
 the name of source language file in training set.
 }
   \item{file_train2}{
-the name of the target language file in training set.
+the name of  target language file in training set.
 }
   \item{nrec}{
-number of sentences to be read. If  -1, it considers all sentences.
+the number of sentences to be read. If  -1, it considers all sentences.
 }
   \item{iter}{
-number of iterations for IBM Model 1.
+the number of iterations for IBM Model 1.
 }
   \item{minlen}{
 a minimum length of sentences.
@@ -39,35 +37,33 @@ a minimum length of sentences.
 a maximum length of sentences.
 }
   \item{ul_s}{
-logical. If \samp{TRUE}, it will convert the first character of source language's  sentences. When source language is an Arabic script, it should be \samp{FALSE}.
+logical. If \code{TRUE}, it will convert the first character of the source language's  sentences. When the source language is an Arabic script, it should be \code{FALSE}.
 }
   \item{ul_t}{
-logical. If \samp{TRUE}, it will convert the first character of target language's  sentences. When target language is an Arabic script, it should be \samp{FALSE}.
+logical. If \code{TRUE}, it will convert the first character of the target language's  sentences. When the target language is an Arabic script, it should be \code{FALSE}.
 }
   \item{removePt}{
-logical. If \samp{TRUE}, it removes all punctuation marks.
+logical. If \code{TRUE}, it removes all punctuation marks.
 }
   \item{all}{
-logical. If \samp{TRUE}, it considers the third argument (\samp{lower = TRUE}) in \samp{culf} function.
+logical. If \code{TRUE}, it considers the third argument (\code{lower = TRUE}) in \code{\link{culf}} function.
 }
-  \item{display}{
-character string including two values. If \samp{'word1'}, alignments are exhibited as words. If \samp{'number'}, alignments exhibits as numbers.
-}
-  \item{dtfile}{
-to run this function for the first time, it must be assigned to \samp{NULL}. In this case, the function will automatically save required data.table (it is necessary for obtaining MLE of IBM Model 1's parameters.) with a name which is a combination of \samp{f1}, \samp{e1}, \samp{nrec} and \samp{iter} as "f1.e1.nrec.iter.RData".
-Note that, the abovementioned name must not be changed. For next times, it is sufficient to set \samp{dtfile} to any character, e.g. "a", "textfile" or "myproject".  
+  \item{dtfile_path}{
+if \code{NULL} (usually for the first time), a data.table will be created contaning cross words of all sentences with their matched probabilities. It saves into a file named as a combination of \code{f1}, \code{e1}, \code{nrec} and \code{iter} as "f1.e1.nrec.iter.RData".
+
+If specific file name is set, it will be read and continue the rest of the function, i.e. : finding the word alignments.
 }
   \item{f1}{
-it is a notation for the source language (default = \samp{'fa'}).
+it is a notation for the source language (default = \code{'fa'}).
 }
   \item{e1}{
-it is a notation for the target language (default = \samp{'en'}).
+it is a notation for the target language (default = \code{'en'}).
 }
-  \item{sym}{
-logical. If \samp{TRUE}, the output can be used by \samp{Symmetrization} function.
+  \item{result_file}{
+the output results file name.
 }
   \item{input}{
-logical. If \samp{TRUE}, the output can be used by \samp{mydictionary} and \samp{Evaluation1} functions.
+logical. If \code{TRUE}, the output can be used by \code{\link{mydictionary}} and \code{\link{Evaluation1}} functions.
 }
 \item{x}{
 an object of class \code{"alignment"}.
@@ -75,22 +71,14 @@ an object of class \code{"alignment"}.
   \item{\dots}{ further arguments passed to or from other methods. }
 }
 \details{
-Here, word alignment is a map of target language to source language. 
+Here, word alignment is a map of the target language to the source language. 
 
 The results depend on the corpus. As an example, we have used English-Persian parallel corpus named Mizan which consists of more than 1,000,000 sentence pairs with a size of 170 Mb. If all sentences are considered, it takes about 50.96671 mins using a computer with cpu: intel Xeon X5570 2.93GHZ and Ram: 8*8 G = 64 G and word alignment is good. But for the 10,000 first sentences, the word alignment might not be good. In fact, it is sensitive to the original translation type (lexical or conceptual). The results can be found at 
 
-\code{http://www.um.ac.ir/~sarmad/word.a/example_wordalignIBM1.pdf}
+\url{http://www.um.ac.ir/~sarmad/word.a/example_wordalignIBM1.pdf}
 }
 \value{
 \code{word_alignIBM1} returns an object of class \code{"alignment"}.
-
- if  \samp{sym = TRUE}
-  \item{ef}{A list of integer vectors.} 
- 
- if  \samp{input = TRUE}
-  \item{dd1}{A data.table}
- 
- if \samp{sym = FALSE}  and  \samp{input = FALSE}
   \item{n1}{An integer.}
   \item{n2}{An integer.}
   \item{time }{A number. (in second/minute/hour)}
@@ -100,8 +88,9 @@ The results depend on the corpus. As an example, we have used English-Persian pa
   \item{VocabularySize_source }{An integer.}
   \item{VocabularySize_target }{An integer.}
   \item{word_translation_prob }{A data.table.}
-  \item{word_align }{A list of one-to-many word alignment for each sentence pair.}
-  \item{aa}{A matrix (n*2), where \samp{n} is the number of remained sentence pairs after preprocessing.}
+  \item{word_align }{A list of one-to-many word alignment for each sentence pair (it is as word by word).}
+  \item{number_align }{A list of one-to-many word alignment for each sentence pair (it is as numbers).}
+  \item{aa}{A matrix (n*2), where \code{n} is the number of remained sentence pairs after preprocessing.}
 }
 \references{
 Koehn P. (2010), "Statistical Machine Translation.",
@@ -114,7 +103,7 @@ Approach to Machine Translation.", Computational Linguistics, 16(2), 79-85.
 
 Supreme Council of Information and Communication Technology. (2013), Mizan English-Persian Parallel Corpus. Tehran, I.R. Iran. Retrieved from http://dadegan.ir/catalog/mizan.
 
-http://statmt.org/europarl/v7/bg-en.tgz
+\url{http://statmt.org/europarl/v7/bg-en.tgz}
 }
 \author{
 Neda Daneshgar and Majid Sarmad.
@@ -128,11 +117,12 @@ corpus size.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{Evaluation1}, \code{Symmetrization}, \code{mydictionary}
+\code{\link{Evaluation1}}, \code{\link{Symmetrization}}, \code{\link{mydictionary}}
 }
 \examples{
-#Since the extraction of  bg-en.tgz in Europarl corpus is time consuming, 
-#so the aforementioned unzip files have been exported to http://www.um.ac.ir/~sarmad/... .
+# Since the extraction of  bg-en.tgz in Europarl corpus is time consuming, 
+# so the aforementioned unzip files have been temporarily exported to 
+# http://www.um.ac.ir/~sarmad/... .
 \dontrun{
 
 w1 = word_alignIBM1 ('http://www.um.ac.ir/~sarmad/word.a/euro.bg',
