@@ -63,7 +63,7 @@ it is a notation for the target language (default = \code{'en'}).
 the output results file name.
 }
   \item{input}{
-logical. If \code{TRUE}, the output can be used by \code{\link{mydictionary}} and \code{\link{Evaluation1}} functions.
+logical. If \code{TRUE}, the output can be used by \code{\link{mydictionary}} and \code{\link{align_test.set}} functions.
 }
 \item{x}{
 an object of class \code{"alignment"}.
@@ -79,6 +79,13 @@ The results depend on the corpus. As an example, we have used English-Persian pa
 }
 \value{
 \code{word_alignIBM1} returns an object of class \code{"alignment"}.
+
+An object of class \code{"alignment"} is a list containing the following components:
+
+If  \samp{input = TRUE}
+ \item{dd1}{A data.table.}
+Otherwise, 
+
   \item{n1}{An integer.}
   \item{n2}{An integer.}
   \item{time }{A number. (in second/minute/hour)}
@@ -117,7 +124,7 @@ corpus size.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{Evaluation1}}, \code{\link{Symmetrization}}, \code{\link{mydictionary}}
+\code{\link{align_test.set}}, \code{\link{Symmetrization}}, \code{\link{mydictionary}}
 }
 \examples{
 # Since the extraction of  bg-en.tgz in Europarl corpus is time consuming, 

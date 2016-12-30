@@ -12,8 +12,8 @@ For a given Sentence-Aligned Parallel Corpus, it aligns words for each sentence 
 \tabular{ll}{
 Package: \tab word.alignment\cr
 Type: \tab Package\cr
-Version: \tab 1.0.3\cr
-Date: \tab 2016-10-31\cr
+Version: \tab 1.0.4\cr
+Date: \tab 2016-12-28\cr
 License: \tab GPL (>= 2)\cr
 }
 }

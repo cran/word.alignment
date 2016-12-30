@@ -41,11 +41,11 @@ function (file_train1,file_train2, method = c ('union', 'intersection', 'grow-di
         pos_col = sapply (1 : len, function (x) floor (union [[x]] / (le [x] + 2))) # column's number related to the source language in the matrix
         pos_row = sapply (1 : len, function (x) union [[x]] - pos_col [[x]] * (le[x] + 2) - 1) # row's number related to the target language in the matrix
         
-        align_un = sapply(1 : len, function(x) paste (word3 [[x]][pos_row[[x]]], word2 [[x]][pos_col[[x]]], sep = ':', collapse = '    '))
+        align_un = sapply(1 : len, function(x) paste (word3 [[x]][pos_row[[x]]], word2 [[x]][pos_col[[x]]], sep = ':'))
         
         date2 = as.POSIXlt(Sys.time(), "Iran")
         
-        mylist = list(time = date2 - date1, method = method, alignment = align_un, aa = sapply(1:len,function(x)paste(word2[[x]],sep='',collapse=' ')))
+        mylist = list(time = date2 - date1, method = method, alignment = align_un, aa = sapply(1:len,function(x)paste(word2[[x]],sep='', collapse=' ')))
         
         save(mylist,file = paste('symmetric', method, 'RData', sep = '.'))
         cat(paste(getwd(), '/', 'symmetric', '.', method, '.RData',' created','\n',sep=''))
@@ -65,7 +65,7 @@ function (file_train1,file_train2, method = c ('union', 'intersection', 'grow-di
         pos_col = sapply (1 : len, function (x) floor (intersection [[x]] / (le [x] + 2))) # column's number related to the source language in the matrix
         pos_row = sapply (1 : len, function (x) intersection [[x]] - pos_col [[x]] * (le[x] + 2) - 1) # row's number related to the target language in the matrix
         
-        align_in = sapply(1 : len, function(x) paste ( word3 [[x]][pos_row[[x]]], word2 [[x]][pos_col[[x]]], sep = ':', collapse = '    '))
+        align_in = sapply(1 : len, function(x) paste ( word3 [[x]][pos_row[[x]]], word2 [[x]][pos_col[[x]]], sep = ':'))
         #names(align_in) = 1 : len
         
         date2 = as.POSIXlt(Sys.time(), "Iran")
@@ -88,7 +88,7 @@ function (file_train1,file_train2, method = c ('union', 'intersection', 'grow-di
         pos_col = sapply (1 : len, function (x) floor (iii [[x]] / (le [x] + 2))) # column's number related to the source language in the matrix
         pos_row = sapply (1 : len, function (x) iii [[x]] - pos_col [[x]] * (le[x] + 2) - 1) # row's number related to the target language in the matrix
         
-        symmet = sapply(1 : len, function(x) paste ( word3 [[x]][pos_row[[x]]], word2 [[x]][pos_col[[x]]], sep = ':', collapse = '    '))
+        symmet = sapply(1 : len, function(x) paste ( word3 [[x]][pos_row[[x]]], word2 [[x]][pos_col[[x]]], sep = ':'))
         #names(symmet) = 1 : len
         
         date2 = as.POSIXlt(Sys.time(), "Iran")
@@ -110,9 +110,12 @@ cat("\n")
 print(x $ time)
 cat("Symmetrization method is", x[[2]], "\n")
 cat("Symmetric word alignment for some sentence pairs are", "\n")
-sapply(1:3,function(i){cat(paste(i,x $ aa[i],sep=': '),'\n');cat(x $ alignment[i],'\n')})
+sapply(1:3,function(i){cat(paste(i,x $ aa[i],sep=': '),'\n');
+print(noquote(x $ alignment[[i]]))})
 cat("            ", ".", "\n")
 cat("            ", ".", "\n")
 cat("            ", ".", "\n")
-sapply((length(x $ alignment) - 2) : length(x $ alignment),function(i){cat(paste(i,x $ aa[i],sep=': '),'\n');cat(x $ alignment[i],'\n')})
+sapply((length(x $ alignment) - 2) : length(x $ alignment),
+function(i){cat(paste(i,x $ aa[i],sep=': '),'\n');
+print(noquote(x $ alignment[[i]]))})
 }

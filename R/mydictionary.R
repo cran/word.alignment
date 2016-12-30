@@ -14,21 +14,21 @@ function (file_train1,file_train2, nrec = -1, iter = 15, prob = 0.8, minlen=5, m
             save(dd1,iter, file = paste(f1, e1, nrec, iter, 'RData',sep='.'))
             cat(paste(getwd(), '/', f1,'.', e1,'.', nrec, '.', iter, '.RData',' created','\n', sep=''))
         }else{
-            return(cat("Error: No such file or directory in dtfile_path."))
+            return(print("Error: No such file or directory in dtfile_path."))
         }
     }
     if(! is.null(dtfile_path))
     if (file.exists(dtfile_path)) {
         load(dtfile_path)
     }else{
-        return(cat("Error: No such file or directory in dtfile_path."))
+        return(print("Error: No such file or directory in dtfile_path."))
     }
     
     u1 = unique (dd1 [round (t, 1) > prob, f, e])
     fe = matrix (c (u1$f, u1$e), ncol = 2)
     colnames(fe) = c (lang1, lang2)
     fe = fe [order (fe [,1]),]
-    
+    fe = apply(fe, 1, paste, collapse = ':')
     date2 = as.POSIXlt (Sys.time(), "Iran")
     ##################################################################
     mylist = list (time = date2 - date1, number_input = nrec, Value_prob = prob,iterIBM1 = iter, dictionary = fe)

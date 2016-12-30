@@ -69,7 +69,7 @@ function(file_train1, file_train2, nrec = -1, iter = 4, minlen = 5, maxlen = 40,
     c1 = c (0, cumsum (le))
     
     
-    ef_word = sapply (1 : len, function (x) paste (word3 [[x]], word2[[x]] [d1 [ (c1 [x] + 1) : c1 [x + 1]] + 1], sep = ':', collapse='    '))
+    ef_word = sapply (1 : len, function (x) paste (word3 [[x]], word2[[x]] [d1 [ (c1 [x] + 1) : c1 [x + 1]] + 1], sep = ':'))
     
     ef_number = sapply (1 : len, function (x) d1 [ (c1 [x] + 1) : c1 [x + 1]])
     
@@ -94,7 +94,7 @@ function(file_train1, file_train2, nrec = -1, iter = 4, minlen = 5, maxlen = 40,
     
     save(mylist,file = paste(result_file, f1, e1, nrec, iter, 'RData', sep = '.'))
     
-    cat(result_file, '.', f1, '.', e1, '.', nrec, '.', iter,'.RData',' created','\n',sep='')
+    cat(result_file, '.', f1, '.', e1, '.', nrec, '.', iter,'.RData',' created','\n',sep = '')
     
     #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^#
     attr(mylist, "class") <- "alignment"
@@ -109,9 +109,14 @@ cat("The number of input sentence pairs is", x[[1]], "\n")
 cat("The number of used sentence pairs is", x[[2]], "\n")
 cat("The number of iterations for IBM Model 1 is ", x[[4]], "\n")
 cat("Word alignment for some sentence pairs are", "\n")
-sapply(1:3,function(i){cat(paste(i,x $ aa[i,1],sep=': '),'\n');cat(x $ word_align[i],'\n')})
+sapply(1:3,function(i){cat(paste(i,x $ aa[i,1],sep=': '),'\n'); 
+print(noquote(x $ word_align[[i]]))})
 cat("            ", ".", "\n")
 cat("            ", ".", "\n")
 cat("            ", ".", "\n")
-sapply((length(x $ word_align) - 2) : length(x $ word_align),function(i){cat(paste(i,x $ aa[i,1],sep=': '),'\n');cat(x $ word_align[i],'\n')})
+sapply((length(x $ word_align) - 2) : length(x $ word_align),
+function(i){cat(paste(i,x $ aa[i,1],sep=': '),'\n');
+print(noquote(x $ word_align[[i]]))})
 }
+
+

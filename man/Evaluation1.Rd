@@ -8,42 +8,12 @@ Evaluation of Word Alignment Quality
 It measures Precision, Recall, AER, and F_measurs metrics to evaluate the quality of word alignment.
 }
 \usage{
-Evaluation1(tst.set_sorc, tst.set_trgt, 
-            nlen = -1, minlen = 5, maxlen = 40, 
-            ul_s = FALSE, ul_t = TRUE, removePt = TRUE, 
-            all = FALSE, file_gold = "gold.RData", 
+Evaluation1(file_gold = "gold.RData", 
             agn = c("my.agn", "an.agn"),
             file_align = "alignment.-1.3.RData", alpha = 0.3)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{tst.set_sorc}{
-the name of source language file in test set.
-}
-  \item{tst.set_trgt}{
-the name of target language file in test set.
-}
-  \item{nlen}{
-number of sentences in the test set to be read. If  -1, it considers all sentences.
-}
-  \item{minlen}{
-a minimum length of sentences in test set.
-}
-  \item{maxlen}{
-a maximum length of sentences in test set.
-}
-  \item{ul_s}{
-logical. If \code{TRUE}, it will convert the first character of the source language's  sentences. When the source language is an Arabic script, it can be \code{FALSE}.
-}
-  \item{ul_t}{
-logical. If \code{TRUE}, it will convert the first character of the target language's  sentences. When the target language is an arabic script, it can be \code{FALSE}.
-}
-  \item{removePt}{
-logical. If \code{TRUE}, it removes all punctuation marks.
-}
-  \item{all}{
-logical. If \code{TRUE}, it considers the third argument (\code{lower = TRUE}) in \code{\link{culf}} function.
-}
   \item{file_gold}{
 the gold standarad file name.}
   

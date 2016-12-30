@@ -1,13 +1,10 @@
 Evaluation1 <-
-function(tst.set_sorc, tst.set_trgt, nlen = -1, minlen = 5, maxlen = 40, ul_s = FALSE, ul_t = TRUE, removePt = TRUE, all = FALSE, file_gold = "gold.RData", agn = c("my.agn","an.agn"), file_align = "alignment.-1.3.RData", alpha = 0.3)
+function(file_gold = "gold.RData", agn = c("my.agn","an.agn"), file_align = "alignment.-1.3.RData", alpha = 0.3)
 {
     date1 = as.POSIXlt (Sys.time(), "Iran")
     e = f = g = fg1= fg = SP = dd = gfe = A = recall0 = n_AS = n_S = precision0 = n_AP = n_A = AER0 = c()
     
     agn = match.arg(agn)
-    
-    p1 = prepareData(tst.set_sorc, tst.set_trgt, nrec = nlen, minlen = minlen, maxlen = maxlen, ul_s = ul_s, ul_t = ul_t, removePt = removePt, all = all,  word_align = FALSE)
-    len = p1 $ used
     #------------------------Constructing a gold standard --------------------------
     readline(paste('Please ensure that you create the file(s) by cons.agn function in this package and you fill the "',  file_align, '" file by "1|2" for sure|possible. Then press "Enter" to continue.', sep=''))
     readline(paste('If you have an excel file, please convert it into required R format using ExcelToR function available in this package.\nThen press "Enter" to continue.', sep = ''))
@@ -15,6 +12,8 @@ function(tst.set_sorc, tst.set_trgt, nlen = -1, minlen = 5, maxlen = 40, ul_s = 
     load(file = file_gold)
     null1 = fg1
     
+    len = length(fg)
+
     sum1 = sapply(1 : len, function(x)sum(as.numeric(fg[[x]][-1,-1])))
     if( sum(sum1 == 0)!= 0) paste('Warning: sentence(s)', paste(which(sum1==0), collapse=','), 'has (have) not been aligned.')
     
