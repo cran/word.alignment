@@ -4,7 +4,7 @@ function (fe, ef, n_row)
 kk = function (x,y) c ((x - 1), (x - 1 + 2), (x - 1 - y) : (x - 1 - y + 2), (x - 1 + y) : (x - 1 + y + 2))
 iii = fe [fe %in% ef]
 i2 = length (iii)
-if (i2 == 0) {iii = 0; return (iii)}
+if (i2 == 0) {iii = numeric(0); return (iii)}
 repeat
 {
 i2 = length (iii)

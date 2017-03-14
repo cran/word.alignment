@@ -30,7 +30,7 @@ if (ul_t) aa[,2] = culf (aa [,2], lower = all)
 rm (s_sen, t_sen)
 gc ()
 
-aa = tokenize(aa, removePunct = removePt)
+aa = tokens(aa, removePunct = removePt)
 len2 = length(aa) / 2
 
 aa4 = aa [1 : len2]

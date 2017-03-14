@@ -1,36 +1,35 @@
 Symmetrization <-
-function (file_train1,file_train2, method = c ('union', 'intersection', 'grow-diag'), nrec = -1, iter = 4, minlen = 5, maxlen = 40, ul_s = FALSE, ul_t = TRUE, removePt = TRUE, all = FALSE, f1 = 'fa', e1 = 'en')
+function (file_train1,file_train2, method = c ('union', 'intersection', 'grow-diag'), nrec = -1, iter = 4, minlen = 5, maxlen = 40, ul_s = TRUE, ul_t = TRUE, removePt = TRUE, all = FALSE, f1 = 'fa', e1 = 'en')
 {
     date1 = as.POSIXlt (Sys.time(), "Iran")
     
     method = match.arg (method)
     
-    ef1 = word_alignIBM1 (file_train1, file_train2, nrec = nrec, iter = iter, minlen = minlen, maxlen = maxlen, removePt = removePt, f1 = f1, e1 = e1) $ number_align
+    ef1 = word_alignIBM1 (file_train1, file_train2, nrec = nrec, iter = iter, minlen = minlen, maxlen = maxlen, ul_s = ul_s, ul_t = ul_t, removePt = removePt, f1 = f1, e1 = e1) $ number_align
     
-    fe1 = word_alignIBM1 (file_train2, file_train1, nrec = nrec, iter = iter, minlen = minlen, maxlen = maxlen, removePt = removePt, f1 = e1, e1 = f1) $ number_align
+    fe1 = word_alignIBM1 (file_train2, file_train1, nrec = nrec, iter = iter, minlen = minlen, maxlen = maxlen, ul_s = ul_s, ul_t = ul_t, removePt = removePt, f1 = e1, e1 = f1) $ number_align
     len = length (fe1)
     
-    le = vapply (ef1, length, FUN.VALUE = 0)
-    lf = vapply (fe1, length, FUN.VALUE = 0)
+    aa = prepareData (file_train1, file_train2, nrec = nrec, minlen = minlen, maxlen = maxlen, ul_s = ul_s, ul_t = ul_t, removePt = removePt, all = all, word_align = TRUE)
     
-    word = prepareData (file_train1, file_train2, nrec = nrec, minlen = minlen, maxlen = maxlen, ul_s = ul_s, ul_t = ul_t, removePt = removePt, all = all, word_align = FALSE)
-    word2 = word [[3]]
-    word3 = word [[4]]
+    aa = aa[[2]]
     
-    #---- position of matrix f to e (rows = the target language, columns = The source language)----
+    aa[,1] = paste('null',aa[,1]); aa[,2] = paste('null',aa[,2])
     
-    pos1 = sapply (1 : len, function (x) (0 : (lf [x] - 1)) * le [x] + fe1 [[x]])
+    word2 = strsplit (aa,' ')[1 : len]
+    word3 = strsplit (aa,' ')[(len + 1) : (2 * len)]
     
-    fe = sapply (1 : len, function (x) pos1 [[x]] + seq (le [x] + 3, by = 2, length = lf [x]))#column's position in added matrix (2 rows and 2 columns are added in the marginal of initial matrix)
-    fe = sapply (1 : len, function (x) fe [[x]][!is.na (fe [[x]])])
+    lf = vapply (word2, length, FUN.VALUE = 0)
+    le = vapply (word3, length, FUN.VALUE = 0)
     
-    #---- position of matrix e to f (rows=the target language,columns=The source language)----
+    #---- position of matrix f to e (rows = the source language(e), columns = The target language(f))----
     
-    pos2 = sapply (1 : len, function (x)(0 : (le[x] - 1)) * lf [x] + ef1 [[x]])
+    fe = sapply (1 : len, function (x) (2 : lf[x]) * (le[x] + 2) + (fe1[[x]] + 2))  #column's position in added matrix (2 rows and 2 columns are added in the marginal of initial matrix)
     
-    ef = sapply (1 : len, function (x) pos2 [[x]] + seq (lf [x] + 3, by = 2, length = le [x])) #row's position in added matrix (2 rows and 2 columns are added in the marginal of initial matrix)
-    ef = sapply (1 : len, function (x) (ef [[x]] - (ef1 [[x]] + 1)) / (lf [x] + 2) + 1 + ef1 [[x]] * (le [x] + 2)) # added rows and columns based on column's position
-    ef = sapply (1 : len, function (x) ef [[x]][!is.na (ef [[x]])])
+    #---- position of matrix e to f (rows=the target language(e),columns=The source language(f))----
+    
+    ef = sapply (1 : len, function (x) (2 : le[x]) * (lf[x] + 2) + (ef1[[x]] + 2)) #row's position in added matrix (2 rows and 2 columns are added in the marginal of initial matrix)
+    ef = sapply (1 : len, function (x) (ef [[x]] - (ef1 [[x]] + 2)) / (lf [x] + 2)  + (ef1 [[x]] + 1) * (le [x] + 2) + 1) #  computing column's position using row's positions
     
     #----------------------------------------------------------------
     #          Union Word Alignment without null
@@ -41,14 +40,14 @@ function (file_train1,file_train2, method = c ('union', 'intersection', 'grow-di
         pos_col = sapply (1 : len, function (x) floor (union [[x]] / (le [x] + 2))) # column's number related to the source language in the matrix
         pos_row = sapply (1 : len, function (x) union [[x]] - pos_col [[x]] * (le[x] + 2) - 1) # row's number related to the target language in the matrix
         
-        align_un = sapply(1 : len, function(x) paste (word3 [[x]][pos_row[[x]]], word2 [[x]][pos_col[[x]]], sep = ':'))
+        align_un = sapply(1 : len, function(x) paste (word3 [[x]][pos_row[[x]]], word2 [[x]][pos_col[[x]]], sep = ' '))
         
         date2 = as.POSIXlt(Sys.time(), "Iran")
         
-        mylist = list(time = date2 - date1, method = method, alignment = align_un, aa = sapply(1:len,function(x)paste(word2[[x]],sep='', collapse=' ')))
+        mylist = list(time = date2 - date1, method = method, alignment = align_un, aa = sapply(1:len,function(x)paste(word2[[x]],sep='',collapse=' ')))
         
-        save(mylist,file = paste('symmetric', method, 'RData', sep = '.'))
-        cat(paste(getwd(), '/', 'symmetric', '.', method, '.RData',' created','\n',sep=''))
+        save(mylist,file = paste('symmetric', method, nrec, iter, 'RData', sep = '.'))
+        cat(paste(getwd(), '/', 'symmetric', '.', method, '.', nrec, '.', iter, '.RData',' created','\n',sep=''))
         
         attr(mylist, "class") <- "symmet"
         
@@ -65,15 +64,14 @@ function (file_train1,file_train2, method = c ('union', 'intersection', 'grow-di
         pos_col = sapply (1 : len, function (x) floor (intersection [[x]] / (le [x] + 2))) # column's number related to the source language in the matrix
         pos_row = sapply (1 : len, function (x) intersection [[x]] - pos_col [[x]] * (le[x] + 2) - 1) # row's number related to the target language in the matrix
         
-        align_in = sapply(1 : len, function(x) paste ( word3 [[x]][pos_row[[x]]], word2 [[x]][pos_col[[x]]], sep = ':'))
-        #names(align_in) = 1 : len
+        align_in = sapply(1 : len, function(x) paste ( word3 [[x]][pos_row[[x]]], word2 [[x]][pos_col[[x]]], sep = ' '))
         
         date2 = as.POSIXlt(Sys.time(), "Iran")
         
         mylist = list(time = date2 - date1, method = method, alignment = align_in, aa = sapply(1:len,function(x)paste(word2[[x]],sep='',collapse=' ')))
         
-        save(mylist,file = paste('symmetric', method, 'RData', sep = '.'))
-        cat(paste(getwd(), '/', 'symmetric', '.', method, '.RData',' created','\n',sep=''))
+        save(mylist,file = paste('symmetric', method, nrec, iter, 'RData', sep = '.'))
+        cat(paste(getwd(), '/', 'symmetric', '.', method, '.', nrec, '.', iter, '.RData',' created','\n',sep=''))
         
         attr(mylist, "class") <- "symmet"
         return(mylist)
@@ -83,25 +81,26 @@ function (file_train1,file_train2, method = c ('union', 'intersection', 'grow-di
     #----------------------------------------------------------------
     if(method=='grow-diag')
     {
-        iii = sapply (1 : len, function(x) squareN (fe [[x]],ef [[x]],(le [x] + 2)))
+        g_d = sapply (1 : len, function(x) squareN (fe [[x]],ef [[x]],(le [x] + 2)))
         
-        pos_col = sapply (1 : len, function (x) floor (iii [[x]] / (le [x] + 2))) # column's number related to the source language in the matrix
-        pos_row = sapply (1 : len, function (x) iii [[x]] - pos_col [[x]] * (le[x] + 2) - 1) # row's number related to the target language in the matrix
+        pos_col = sapply (1 : len, function (x) floor (g_d [[x]] / (le [x] + 2))) # column's number related to the source language in the matrix
+        pos_row = sapply (1 : len, function (x) g_d [[x]] - pos_col [[x]] * (le[x] + 2) - 1) # row's number related to the target language in the matrix
         
         symmet = sapply(1 : len, function(x) paste ( word3 [[x]][pos_row[[x]]], word2 [[x]][pos_col[[x]]], sep = ':'))
-        #names(symmet) = 1 : len
         
         date2 = as.POSIXlt(Sys.time(), "Iran")
         
         mylist = list(time = date2 - date1, method = method, alignment = symmet, aa = sapply(1:len,function(x)paste(word2[[x]],sep='',collapse=' ')))
         
-        save(mylist,file = paste('symmetric', method, 'RData', sep = '.'))
-        cat(paste(getwd(), '/', 'symmetric', '.', method, '.RData',' created','\n', sep=''))
-        
+        save(mylist,file = paste('symmetric', method, nrec, iter, 'RData', sep = '.'))
+        cat(paste(getwd(), '/', 'symmetric', '.', method, '.', nrec, '.', iter, '.RData',' created','\n',sep=''))
+
         attr(mylist, "class") <- "symmet"
         return(mylist)
     }
 }
+
+
 
 print.symmet <-
 function(x, ...) 

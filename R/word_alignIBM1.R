@@ -8,9 +8,7 @@ function(file_train1, file_train2, nrec = -1, iter = 4, minlen = 5, maxlen = 40,
     aa = prepareData (file_train1, file_train2, nrec = nrec, minlen = minlen, maxlen = maxlen, ul_s = ul_s, ul_t = ul_t, removePt = removePt, all = all, word_align = TRUE)
     n1 = aa[[1]]
     
-    aa = aa[[2]]
-    
-    aa = cbind(paste('null',aa[,1]),aa[,2])
+    aa = cbind(paste('null', aa[[2]][,1]), aa[[2]][,2])
     
     len = nrow(aa)
     
@@ -64,12 +62,11 @@ function(file_train1, file_train2, nrec = -1, iter = 4, minlen = 5, maxlen = 40,
     dd1 [, i := unlist (sapply (1 : len, function (x) rep (0 : (lf [x]-1), le [x])))]
     dd1 [, j := unlist (sapply (1 : len, function (x) rep (1 : (le[x]), each = lf [x])))]
     
-    d1 = dd1 [, i [ which.max (t)], by = paste (g, j)] [[2]]
+    d1 = dd1 [, i [ which.max (t)], by = list (g, j)] [[3]]
     
     c1 = c (0, cumsum (le))
     
-    
-    ef_word = sapply (1 : len, function (x) paste (word3 [[x]], word2[[x]] [d1 [ (c1 [x] + 1) : c1 [x + 1]] + 1], sep = ':'))
+    ef_word = sapply (1 : len, function (x) paste (word3 [[x]], word2[[x]] [d1 [ (c1 [x] + 1) : c1 [x + 1]] + 1], sep = ' '))
     
     ef_number = sapply (1 : len, function (x) d1 [ (c1 [x] + 1) : c1 [x + 1]])
     
@@ -84,7 +81,7 @@ function(file_train1, file_train2, nrec = -1, iter = 4, minlen = 5, maxlen = 40,
     v.s2 = length (unique (unlist (word3)))
     
     #----------------- Word Translation Probability ----------------
-    dd2 = unique (dd1 [, t, by = paste (e,f)])
+    dd2 = unique (dd1 [, t, by = list (e,f)])
     
     date2=as.POSIXlt(Sys.time(), "Iran")
     #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -94,12 +91,14 @@ function(file_train1, file_train2, nrec = -1, iter = 4, minlen = 5, maxlen = 40,
     
     save(mylist,file = paste(result_file, f1, e1, nrec, iter, 'RData', sep = '.'))
     
-    cat(result_file, '.', f1, '.', e1, '.', nrec, '.', iter,'.RData',' created','\n',sep = '')
+    cat(result_file, '.', f1, '.', e1, '.', nrec, '.', iter,'.RData',' created','\n',sep='')
     
     #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^#
     attr(mylist, "class") <- "alignment"
     return (mylist)
 }
+
+
 
 print.alignment <-
 function(x, ...) 

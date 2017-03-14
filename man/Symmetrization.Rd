@@ -12,7 +12,7 @@ It calculates source-to-target and target-to-source alignments using IBM Model 1
 Symmetrization(file_train1, file_train2, 
                method = c("union", "intersection", "grow-diag"), 
                nrec = -1, iter = 4, minlen = 5, maxlen = 40, 
-               ul_s = FALSE, ul_t = TRUE, removePt = TRUE, 
+               ul_s = TRUE, ul_t = TRUE, removePt = TRUE, 
                all = FALSE, f1 = "fa", e1 = "en")
                
 \method{print}{symmet}(x, ...)
