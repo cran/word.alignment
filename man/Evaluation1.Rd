@@ -9,19 +9,19 @@ It measures Precision, Recall, AER, and F_measurs metrics to evaluate the qualit
 }
 \usage{
 Evaluation1(file_gold = "gold.RData", 
-            agn = c("my.agn", "an.agn"),
-            file_align = "alignment.-1.3.RData", alpha = 0.3)
+            file_align = "alignment.-1.3.RData",
+	    agn = c("my.agn", "an.agn"), alpha = 0.3)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{file_gold}{
 the gold standarad file name.}
   
-  \item{agn}{
-character string including two values. If \code{"my.agn"}, the user wants to evaluate one-to-many word alignment using the \code{word_alignIBM1} function in this package. If \code{"an.agn"}, the user wants to evaluate word alignment results which are obtained by another software.
-}
   \item{file_align}{
 the alignment file name.
+}
+\item{agn}{
+character string including two values. If \code{"my.agn"}, the user wants to evaluate one-to-many word alignment using the \code{word_alignIBM1} function in this package. If \code{"an.agn"}, the user wants to evaluate word alignment results which are obtained by another software.
 }
   \item{alpha}{
 is a parameter that sets the trade-off between Precision and Recall.

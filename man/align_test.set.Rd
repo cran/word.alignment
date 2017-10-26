@@ -9,7 +9,7 @@ For a given parallel corpus based on IBM Model 1, it aligns the words of a given
 }
 \usage{
 align_test.set(file_train1, file_train2, 
-              nrec = -1, tst.set_sorc, tst.set_trgt, 
+              tst.set_sorc, tst.set_trgt, nrec = -1, 
               nlen = 215, minlen1 = 5, maxlen1 = 40, 
               minlen2 = 5, maxlen2 = 40, ul_s = FALSE, 
               ul_t = TRUE, removePt = TRUE, all = FALSE, 
@@ -24,14 +24,14 @@ the name of source language file in training set.
   \item{file_train2}{
 the name of  target language file in training set.
 }
-  \item{nrec}{
-the number of sentences in the training set to be read. If  -1, it considers all sentences.
-}
   \item{tst.set_sorc}{
 the name of source language file in test set.
 }
   \item{tst.set_trgt}{
 the name of target language file in test set.
+}
+\item{nrec}{
+the number of sentences in the training set to be read. If  -1, it considers all sentences.
 }
   \item{nlen}{
 the number of sentences in the test set to be read. If  -1, it considers all sentences.

@@ -1,5 +1,5 @@
 Evaluation1 <-
-function(file_gold = "gold.RData", agn = c("my.agn","an.agn"), file_align = "alignment.-1.3.RData", alpha = 0.3)
+function(file_gold = "gold.RData", file_align = "alignment.-1.3.RData", agn = c("my.agn","an.agn"), alpha = 0.3)
 {
     date1 = as.POSIXlt (Sys.time(), "Iran")
     e = f = g = fg1= fg = SP = dd = gfe = A = recall0 = n_AS = n_S = precision0 = n_AP = n_A = AER0 = c()

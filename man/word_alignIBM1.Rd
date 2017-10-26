@@ -134,10 +134,10 @@ corpus size.
 
 w1 = word_alignIBM1 ('http://www.um.ac.ir/~sarmad/word.a/euro.bg',
                      'http://www.um.ac.ir/~sarmad/word.a/euro.en',
-                      nrec = 3, ul_s = TRUE)
+                      nrec = 30, ul_s = TRUE)
                  
 w2 = word_alignIBM1 ('http://www.um.ac.ir/~sarmad/word.a/euro.bg',
                      'http://www.um.ac.ir/~sarmad/word.a/euro.en',
-                      nrec = 3, ul_s = TRUE, removePt = FALSE)
+                      nrec = 30, ul_s = TRUE, removePt = FALSE)
 }
 }

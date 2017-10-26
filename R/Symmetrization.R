@@ -17,7 +17,10 @@ function (file_train1,file_train2, method = c ('union', 'intersection', 'grow-di
     aa[,1] = paste('null',aa[,1]); aa[,2] = paste('null',aa[,2])
     
     word2 = strsplit (aa,' ')[1 : len]
+    word2=sapply(1:len,function(x)word2[[x]][word2[[x]] != ""])
+
     word3 = strsplit (aa,' ')[(len + 1) : (2 * len)]
+    word3=sapply(1:len,function(x)word3[[x]][word3[[x]] != ""])
     
     lf = vapply (word2, length, FUN.VALUE = 0)
     le = vapply (word3, length, FUN.VALUE = 0)

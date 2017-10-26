@@ -10,7 +10,7 @@ export(
 "Symmetrization",
 "word_alignIBM1")
 
-import("data.table", "openxlsx", "quanteda")
+import("data.table", "quanteda", "openxlsx" )
 
 importFrom("utils", "fix", "relist")
 

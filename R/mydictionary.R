@@ -7,9 +7,9 @@ function (file_train1,file_train2, nrec = -1, iter = 15, prob = 0.8, minlen=5, m
     if(is.null(dtfile_path))
     {
         n = "yn"
-        while(n != "Yes" & n != "No")
-        n = readline("Are you sure that you want to run the word_alignIBM1 function (It takes time)? (Yes/ No: if you want to specify word alignment path, please press 'No'.)")
-        if (n == "Yes") {
+        while(n != "y" & n != "n")
+        n = readline("Are you sure that you want to run the word_alignIBM1 function (It takes time)? (y/ n: if you want to specify word alignment path, please press 'n'.)")
+        if (n == "y") {
             dd1 = word_alignIBM1 (file_train1, file_train2, minlen = minlen, maxlen = maxlen, iter = iter, nrec = nrec, ul_s = ul_s, ul_t = ul_t, input = TRUE, removePt = removePt)
             save(dd1,iter, file = paste(f1, e1, nrec, iter, 'RData',sep='.'))
             cat(paste(getwd(), '/', f1,'.', e1,'.', nrec, '.', iter, '.RData',' created','\n', sep=''))
