@@ -8,7 +8,7 @@ Converting Excel Files Into Required R Format
 This function converts the excel files into required R format.
 }
 \usage{
-ExcelToR(file_align = "alignment.xlsx", null.tokens = TRUE, len = TRUE)
+ExcelToR(file_align = 'alignment.xlsx', null.tokens = TRUE, len = len)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -16,15 +16,15 @@ ExcelToR(file_align = "alignment.xlsx", null.tokens = TRUE, len = TRUE)
 the excel file name which we want to convert it into required R format. 
 }
   \item{null.tokens}{
-logical. If \samp{TRUE}, "null" is added at the first of each source sentence of the test set.
+logical. If \samp{TRUE}, 'null' is added at the first of each source sentence of the test set.
 }
  \item{len}{
-it is related to  the  number of sheets of the excel file. It is \samp{TRUE} or an integer. If \samp{TRUE}, the function is automatically compute the number of sheets. Otherwise, it must be assigned by the user.
+the  number of sheets of the excel file to be converted into R format. It must be assigned by the user.
 }
 }
 
 \value{
-an RData object as "file_align.RData".
+an RData object as 'file_align.RData'.
 }
 
 \author{
@@ -38,10 +38,4 @@ Note that in order to use the created excel file for the function \code{\link{Ev
 
 \seealso{
 \code{\link{cons.agn}}, \code{\link{Evaluation1}}
-}
-\examples{
-\dontrun{
-
-ExcelToR("http://www.um.ac.ir/~sarmad/word.a/final.gold.xlsx")         
-}
 }

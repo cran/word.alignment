@@ -9,12 +9,13 @@ For a given parallel corpus based on IBM Model 1, it aligns the words of a given
 }
 \usage{
 align_test.set(file_train1, file_train2, 
-              tst.set_sorc, tst.set_trgt, nrec = -1, 
-              nlen = 215, minlen1 = 5, maxlen1 = 40, 
-              minlen2 = 5, maxlen2 = 40, ul_s = FALSE, 
-              ul_t = TRUE, removePt = TRUE, all = FALSE, 
-              null.tokens = TRUE, iter = 3, f1 = "fa", e1 = "en", 
-              dtfile_path = NULL, file_align = "alignment")
+              tst.set_sorc, tst.set_trgt, 
+              nrec = -1, nlen = -1, 
+              encode.sorc = 'unknown', encode.trgt = 'unknown',
+              minlen1 = 5, maxlen1 = 40, minlen2 = 5, maxlen2 = 40, 
+              removePt = TRUE, all = FALSE, null.tokens = TRUE, 
+              iter = 3, f1 = 'fa', e1 = 'en', 
+              dtfile_path = NULL, file_align = 'alignment')
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -36,7 +37,13 @@ the number of sentences in the training set to be read. If  -1, it considers all
   \item{nlen}{
 the number of sentences in the test set to be read. If  -1, it considers all sentences.
 }
-  \item{minlen1}{
+\item{encode.sorc}{
+encoding to be assumed for the source language. If the value is "latin1" or "UTF-8" it is used to mark character strings as known to be in Latin-1 or UTF-8. For more details please see \code{\link{scan}} function.	 
+} 
+\item{encode.trgt}{
+encoding to be assumed for the target language. If the value is "latin1" or "UTF-8" it is used to mark character strings as known to be in Latin-1 or UTF-8. For more details please see \code{\link{scan}} function.	 
+} 
+ \item{minlen1}{
 a minimum length of sentences in training set.
 }
   \item{maxlen1}{
@@ -47,12 +54,6 @@ a minimum length of sentences in test set.
 }
   \item{maxlen2}{
 a maximum length of sentences in test set.
-}
-  \item{ul_s}{
-logical. If \code{TRUE}, it will convert the first character of the source language's  sentences. When the source language is an Arabic script, it can be \code{FALSE}.
-}
-  \item{ul_t}{
-logical. If \code{TRUE}, it will convert the first character of the target language's  sentences. When the target language is an arabic script, it can be \code{FALSE}.
 }
   \item{removePt}{
 logical. If \code{TRUE}, it removes all punctuation marks.
@@ -118,7 +119,7 @@ corpus size.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{word_alignIBM1}}, \code{\link{Evaluation1}}
+\code{\link{word_alignIBM1}}, \code{\link{Evaluation1}}, \code{\link{scan}}
 }
 \examples{
 # Since the extraction of  bg-en.tgz in Europarl corpus is time consuming, 
@@ -129,10 +130,9 @@ corpus size.
 \dontrun{
 
 ats = align_test.set ('http://www.um.ac.ir/~sarmad/word.a/euro.bg',
-                      'http://www.um.ac.ir/~sarmad/word.a/euro.en',
-                       nrec = 100, 
+                      'http://www.um.ac.ir/~sarmad/word.a/euro.en',  
                       'http://www.um.ac.ir/~sarmad/word.a/euro.bg',
                       'http://www.um.ac.ir/~sarmad/word.a/euro.en',
-                       nlen = 5, ul_s = TRUE)               
+                       nrec = 100,nlen = 5, encode.sorc = 'UTF-8',)               
 }
 }

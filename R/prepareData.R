@@ -1,12 +1,12 @@
 prepareData <-
-function(file1, file2, nrec = -1, minlen = 5, maxlen = 40, ul_s = FALSE, ul_t = TRUE, all = FALSE, removePt = TRUE, word_align = TRUE)
+function(file1, file2, nrec = -1, encode.sorc = 'unknown' , encode.trgt = 'unknown', minlen = 5, maxlen = 40, all = FALSE, removePt = TRUE, word_align = TRUE)
 {
 s_sen = t_sen = aa = t = c()
 
-s_sen = readLines (con <- file(file1), encoding = 'UTF-8', n = nrec, warn = FALSE)
+s_sen = readLines (con <- file(file1), encoding = encode.sorc, n = nrec, warn = FALSE)
 close(con)
 
-t_sen = readLines (con <- file(file2), encoding = 'UTF-8', n = nrec, warn = FALSE)
+t_sen = readLines (con <- file(file2), encoding = encode.trgt, n = nrec, warn = FALSE)
 close(con)
 
 if (length(s_sen) == length(t_sen))
@@ -24,8 +24,8 @@ len1 = nrow(aa)
 
 #------------------------- Tokenization --------------------------
     
-if (ul_s) aa[,1] = culf (aa [,1], lower = all)
-if (ul_t) aa[,2] = culf (aa [,2], lower = all)
+aa[,1] = culf (aa [,1], lower = all)
+aa[,2] = culf (aa [,2], lower = all)
 
 rm (s_sen, t_sen)
 gc ()

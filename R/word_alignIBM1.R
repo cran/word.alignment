@@ -1,11 +1,11 @@
 word_alignIBM1 <-
-function(file_train1, file_train2, nrec = -1, iter = 4, minlen = 5, maxlen = 40, ul_s = FALSE, ul_t = TRUE, removePt = TRUE, all = FALSE, dtfile_path = NULL, f1 = 'fa',e1 = 'en', result_file = "myResultIBM1", input = FALSE)
+function(file_train1, file_train2, nrec = -1, encode.sorc = 'unknown', encode.trgt = 'unknown', iter = 5, minlen = 5, maxlen = 40, removePt = TRUE, all = FALSE, dtfile_path = NULL, f1 = 'fa',e1 = 'en', result_file = 'myResultIBM1', input = FALSE)
 {
     date1 = as.POSIXlt (Sys.time(), "Iran")
     a = b = count0 = count = total = i = j = e = f = g = c ()
     
     #-----------------------Translation:f to e ----------------------
-    aa = prepareData (file_train1, file_train2, nrec = nrec, minlen = minlen, maxlen = maxlen, ul_s = ul_s, ul_t = ul_t, removePt = removePt, all = all, word_align = TRUE)
+    aa = prepareData (file_train1, file_train2, encode.sorc = encode.sorc, encode.trgt = encode.trgt, nrec = nrec, minlen = minlen, maxlen = maxlen, removePt = removePt, all = all, word_align = TRUE)
     n1 = aa[[1]]
     
     aa = cbind(paste('null', aa[[2]][,1]), aa[[2]][,2])

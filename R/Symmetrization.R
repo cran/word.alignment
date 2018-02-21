@@ -1,16 +1,16 @@
 Symmetrization <-
-function (file_train1,file_train2, method = c ('union', 'intersection', 'grow-diag'), nrec = -1, iter = 4, minlen = 5, maxlen = 40, ul_s = TRUE, ul_t = TRUE, removePt = TRUE, all = FALSE, f1 = 'fa', e1 = 'en')
+function (file_train1,file_train2, method = c ('union', 'intersection', 'grow-diag'), nrec = -1, encode.sorc = 'unknown', encode.trgt = 'unknown', iter = 4, minlen = 5, maxlen = 40, removePt = TRUE, all = FALSE, f1 = 'fa', e1 = 'en')
 {
-    date1 = as.POSIXlt (Sys.time(), "Iran")
+    date1 = as.POSIXlt (Sys.time(), 'Iran')
     
     method = match.arg (method)
     
-    ef1 = word_alignIBM1 (file_train1, file_train2, nrec = nrec, iter = iter, minlen = minlen, maxlen = maxlen, ul_s = ul_s, ul_t = ul_t, removePt = removePt, f1 = f1, e1 = e1) $ number_align
+    ef1 = word_alignIBM1 (file_train1, file_train2, nrec = nrec, encode.sorc = encode.sorc, encode.trgt = encode.trgt, iter = iter, minlen = minlen, maxlen = maxlen, removePt = removePt, f1 = f1, e1 = e1) $ number_align
     
-    fe1 = word_alignIBM1 (file_train2, file_train1, nrec = nrec, iter = iter, minlen = minlen, maxlen = maxlen, ul_s = ul_s, ul_t = ul_t, removePt = removePt, f1 = e1, e1 = f1) $ number_align
+    fe1 = word_alignIBM1 (file_train2, file_train1, nrec = nrec, encode.sorc = encode.trgt, encode.trgt = encode.sorc, iter = iter, minlen = minlen, maxlen = maxlen, removePt = removePt, f1 = e1, e1 = f1) $ number_align
     len = length (fe1)
     
-    aa = prepareData (file_train1, file_train2, nrec = nrec, minlen = minlen, maxlen = maxlen, ul_s = ul_s, ul_t = ul_t, removePt = removePt, all = all, word_align = TRUE)
+    aa = prepareData (file_train1, file_train2, nrec = nrec, encode.sorc = encode.sorc, encode.trgt = encode.trgt, minlen = minlen, maxlen = maxlen, removePt = removePt, all = all, word_align = TRUE)
     
     aa = aa[[2]]
     

@@ -8,9 +8,9 @@ Evaluation of Word Alignment Quality
 It measures Precision, Recall, AER, and F_measurs metrics to evaluate the quality of word alignment.
 }
 \usage{
-Evaluation1(file_gold = "gold.RData", 
-            file_align = "alignment.-1.3.RData",
-	    agn = c("my.agn", "an.agn"), alpha = 0.3)
+Evaluation1(file_gold = 'gold.RData', 
+            file_align = 'alignment.-1.3.RData',
+	    agn = c('my.agn', 'an.agn'), alpha = 0.3)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

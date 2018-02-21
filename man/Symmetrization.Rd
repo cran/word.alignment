@@ -10,10 +10,10 @@ It calculates source-to-target and target-to-source alignments using IBM Model 1
 }
 \usage{
 Symmetrization(file_train1, file_train2, 
-               method = c("union", "intersection", "grow-diag"), 
-               nrec = -1, iter = 4, minlen = 5, maxlen = 40, 
-               ul_s = TRUE, ul_t = TRUE, removePt = TRUE, 
-               all = FALSE, f1 = "fa", e1 = "en")
+               method = c('union', 'intersection', 'grow-diag'), 
+               nrec = -1, encode.sorc = 'unknown', encode.trgt = 'unknown', 
+	       iter = 4, minlen = 5, maxlen = 40, removePt = TRUE, 
+               all = FALSE, f1 = 'fa', e1 = 'en')
                
 \method{print}{symmet}(x, ...)
 }
@@ -31,6 +31,12 @@ character string specifying the symmetric word alignment method (union, intersec
   \item{nrec}{
 the number of sentences to be read.If  -1, it considers all sentences.
 }
+\item{encode.sorc}{
+encoding to be assumed for the source language. If the value is "latin1" or "UTF-8" it is used to mark character strings as known to be in Latin-1 or UTF-8. For more details please see \code{\link{scan}} function.	 
+} 
+\item{encode.trgt}{
+encoding to be assumed for the target language. If the value is "latin1" or "UTF-8" it is used to mark character strings as known to be in Latin-1 or UTF-8. For more details please see \code{\link{scan}} function.	 
+} 
   \item{iter}{
 the number of  iterations for IBM Model 1.
 }
@@ -39,12 +45,6 @@ a minimum length of sentences.
 }
   \item{maxlen}{
 a maximum length of sentences.
-}
-  \item{ul_s}{
-logical. If \code{TRUE}, it will convert the first character of the source language's  sentences. When the source language is an Arabic script, it can be \code{FALSE}.
-}
-  \item{ul_t}{
-logical. If \code{TRUE}, it will convert the first character of the target language's  sentences. When the target language is an Arabic script, it can be \code{FALSE}.
 }
   \item{removePt}{
 logical. If \code{TRUE}, it removes all punctuation marks.
@@ -59,7 +59,7 @@ it is a notation for the source language (default = \code{'fa'}).
 it is a notation for the target language (default = \code{'en'}).
 }
 \item{x}{
-an object of class \code{"symmet"}.
+an object of class \code{'symmet'}.
   }
    \item{\dots}{ further arguments passed to or from other methods. }
 }
@@ -68,9 +68,9 @@ an object of class \code{"symmet"}.
 Here, word alignment is not only a map of the target language to the source language and it is considered as a symmetric alignment such as union, or intersection, or grow-diag alignment.
 }
 \value{
-\code{Symmetrization} returns an object of class \code{"symmet"}.
+\code{Symmetrization} returns an object of class \code{'symmet'}.
 
-An object of class \code{"symmet"} is a list containing the following components:
+An object of class \code{'symmet'} is a list containing the following components:
 
 \item{time }{A number. (in second/minute/hour)}
 \item{method }{symmetric word alignment method (union, intersection, or grow-diag alignment).}
@@ -93,7 +93,7 @@ Note that we have a memory restriction and just special computers with high cpu 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{word_alignIBM1}}
+\code{\link{word_alignIBM1}}, \code{\link{scan}}
 }
 \examples{
 # Since the extraction of  bg-en.tgz in Europarl corpus is time consuming, 
@@ -104,10 +104,10 @@ Note that we have a memory restriction and just special computers with high cpu 
 
 S1 = Symmetrization ('http://www.um.ac.ir/~sarmad/word.a/euro.bg',
                      'http://www.um.ac.ir/~sarmad/word.a/euro.en',
-                      nrec = 200, ul_s = TRUE)
+                      nrec = 200, encode.sorc = 'UTF-8')
                       
 S2 = Symmetrization ('http://www.um.ac.ir/~sarmad/word.a/euro.bg',
                      'http://www.um.ac.ir/~sarmad/word.a/euro.en',
-                      nrec = 200, ul_s = TRUE, method = 'grow-diag')
+                      nrec = 200, encode.sorc = 'UTF-8', method = 'grow-diag')
 }
 }

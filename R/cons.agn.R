@@ -1,9 +1,9 @@
 cons.agn <-
-function (tst.set_sorc, tst.set_trgt, nrec = -1, minlen = 5, maxlen = 40, ul_s = FALSE, ul_t = TRUE, removePt = TRUE, all = FALSE,  null.tokens = TRUE, Format = c('R','Excel'), file_align = "alignment")
+function (tst.set_sorc, tst.set_trgt, nrec = -1, encode.sorc = 'unknown', encode.trgt = 'unknown', minlen = 5, maxlen = 40, removePt = TRUE, all = FALSE,  null.tokens = TRUE, Format = c('R','Excel'), file_align = 'alignment')
 {
 Format = match.arg(Format)
 
-p1 = prepareData (tst.set_sorc, tst.set_trgt, nrec = nrec, minlen = minlen, maxlen = maxlen, ul_s = ul_s, ul_t = ul_t, removePt = removePt, all = all, word_align = FALSE)
+p1 = prepareData (tst.set_sorc, tst.set_trgt, nrec = nrec, encode.sorc = encode.sorc, encode.trgt = encode.trgt, minlen = minlen, maxlen = maxlen, removePt = removePt, all = all, word_align = FALSE)
 len = p1 $ used
 p1 = unlist (p1, recursive = FALSE)
 

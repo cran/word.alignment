@@ -12,8 +12,8 @@ For a given Sentence-Aligned Parallel Corpus, it aligns words for each sentence 
 \tabular{ll}{
 Package: \tab word.alignment\cr
 Type: \tab Package\cr
-Version: \tab 1.0.8\cr
-Date: \tab 2017-01-21\cr
+Version: \tab 1.0.9\cr
+Date: \tab 2018-02-19\cr
 License: \tab GPL (>= 2)\cr
 }
 }
@@ -53,10 +53,10 @@ Wang X. "Evaluation of Two Word Alignment Systems.", Final Thesis, Department of
 
 ww = word_alignIBM1 ('http://www.um.ac.ir/~sarmad/word.a/euro.bg',
                      'http://www.um.ac.ir/~sarmad/word.a/euro.en',
-                      nrec=2000, ul_s = TRUE)
+                      nrec=2000, encode.sorc = 'UTF-8')
 
 ss = Symmetrization ('http://www.um.ac.ir/~sarmad/word.a/euro.bg',
                      'http://www.um.ac.ir/~sarmad/word.a/euro.en',
-                      nrec = 50, ul_s = TRUE)
+                      nrec = 50, encode.sorc = 'UTF-8')
 }
 }

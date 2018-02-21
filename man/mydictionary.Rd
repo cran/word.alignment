@@ -8,12 +8,12 @@ Building an Automatic Bilingual Dictionary
 It builds an automatic bilingual dictionary of two languages based on given sentence-aligned parallel corpus.
 }
 \usage{
-mydictionary(file_train1, file_train2, 
-             nrec = -1, iter = 15, prob = 0.8, 
-             minlen = 5, maxlen = 40, ul_s = FALSE, ul_t = TRUE, 
-             lang1 = "Farsi", lang2 = "English", removePt = TRUE, 
-             dtfile_path = NULL, f1 = "fa", e1 = "en", 
-             result_file = "mydictionaryResults")
+mydictionary(file_train1, file_train2, nrec = -1, 
+             encode.sorc = 'unknown', encode.trgt = 'unknown', 
+	         iter = 15, prob = 0.8, minlen = 5, maxlen = 40,
+             lang1 = 'Farsi', lang2 = 'English', removePt = TRUE, 
+             dtfile_path = NULL, f1 = 'fa', e1 = 'en', 
+             result_file = 'mydictionaryResults')
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -26,6 +26,12 @@ the name of target language file in training set.
   \item{nrec}{
 the number of sentences to be read.If  -1, it considers all sentences.
 }
+\item{encode.sorc}{
+encoding to be assumed for the source language. If the value is "latin1" or "UTF-8" it is used to mark character strings as known to be in Latin-1 or UTF-8. For more details please see \code{\link{scan}} function.	 
+} 
+\item{encode.trgt}{
+encoding to be assumed for the target language. If the value is "latin1" or "UTF-8" it is used to mark character strings as known to be in Latin-1 or UTF-8. For more details please see \code{\link{scan}} function.	 
+} 
   \item{iter}{
 the number of  iterations for IBM Model 1.
 }
@@ -37,12 +43,6 @@ a minimum length of sentences.
 }
   \item{maxlen}{
 a maximum length of sentences.
-}
-  \item{ul_s}{
-logical. If \code{TRUE}, it will convert the first character of target language's  sentences. When source language is an Arabic script, it can be \code{FALSE}.
-}
-  \item{ul_t}{
-logical. If \code{TRUE}, it will convert the first character of source language's sentences. When target language is an Arabic script, it can be \code{FALSE}.
 }
   \item{lang1}{
 source language's name in mydictionary.
@@ -100,7 +100,9 @@ In addition, if \code{dtfile_path = NULL}, the following question will be asked:
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
-
+\seealso{
+\code{\link{scan}}
+}
 \examples{
 # Since the extraction of  bg-en.tgz in Europarl corpus is time consuming, 
 # so the aforementioned unzip files have been temporarily exported to 
@@ -110,11 +112,11 @@ In addition, if \code{dtfile_path = NULL}, the following question will be asked:
 
 dic1 = mydictionary ('http://www.um.ac.ir/~sarmad/word.a/euro.bg',
                      'http://www.um.ac.ir/~sarmad/word.a/euro.en', 
-                      nrec = 2000, ul_s = TRUE, lang1 = 'BULGARIAN')
+                      nrec = 2000, encode.sorc = 'UTF-8', lang1 = 'BULGARIAN')
               
 dic2 = mydictionary ('http://www.um.ac.ir/~sarmad/word.a/euro.bg',
                      'http://www.um.ac.ir/~sarmad/word.a/euro.en', 
-                      nrec = 2000, ul_s = TRUE, lang1 = 'BULGARIAN',
+                      nrec = 2000, encode.sorc = 'UTF-8', lang1 = 'BULGARIAN',
                       removePt = FALSE)
 }              
 }

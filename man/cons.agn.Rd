@@ -11,14 +11,14 @@ It works with two formats:
 
 For the first format, it constructs a cross table  of the source language words vs the target language words of a given sentence pair.  Then, after filling as mentioned above sentence by sentence, it builds a list of cross tables and finally, it saves the created list as "file_align.RData". 
 
-In the second format, it creates an excel file with \code{nrec} sheets. Each sheet includes a cross table of the two language words related each sentence.  The file is as "file_align.xlsx". The created file  to be filled as mentioned above.
+In the second format, it creates an excel file with \code{nrec} sheets. Each sheet includes a cross table of the two language words related each sentence pair.  The file is as "file_align.xlsx". The created file  to be filled as mentioned above.
 }
 \usage{
-cons.agn(tst.set_sorc, tst.set_trgt, 
-        nrec = -1, minlen = 5, maxlen = 40, 
-        ul_s = FALSE, ul_t = TRUE, removePt = TRUE, 
-        all = FALSE, null.tokens = TRUE, Format = c("R", "Excel"), 
-        file_align = "alignment")
+cons.agn(tst.set_sorc, tst.set_trgt, nrec = -1, 
+        encode.sorc = 'unknown', encode.trgt = 'unknown', 
+        minlen = 5, maxlen = 40, removePt = TRUE, 
+        all = FALSE, null.tokens = TRUE, Format = c('R', 'Excel'), 
+        file_align = 'alignment')
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -26,22 +26,22 @@ cons.agn(tst.set_sorc, tst.set_trgt,
 the name of source language file in test set.
 }
   \item{tst.set_trgt}{
-the name of target language file in test set.is set 
+the name of target language file in test set.
 }
   \item{nrec}{
 the number of sentences to be read. If  -1, it considers all sentences.
 }
+\item{encode.sorc}{
+encoding to be assumed for the source language. If the value is "latin1" or "UTF-8" it is used to mark character strings as known to be in Latin-1 or UTF-8. For more details please see \code{\link{scan}} function.	 
+} 
+\item{encode.trgt}{
+encoding to be assumed for the target language. If the value is "latin1" or "UTF-8" it is used to mark character strings as known to be in Latin-1 or UTF-8. For more details please see \code{\link{scan}} function.	 
+} 
   \item{minlen}{
 a minimum length of sentences.
 }
   \item{maxlen}{
 a maximum length of sentences.
-}
-  \item{ul_s}{
-logical. If \code{TRUE}, it will convert the first character of the source language's  sentences. When the source language is an Arabic script, it can be \code{FALSE}.
-}
-  \item{ul_t}{
-logical. If \code{TRUE}, it will convert the first character of the target language's  sentences. When the target language is an Arabic script, it can be \code{FALSE}.
 }
   \item{removePt}{
 logical. If \code{TRUE}, it removes all punctuation marks.
@@ -75,25 +75,25 @@ Och F., Ney H.(2003), "A Systematic Comparison Of Various Statistical Alignment 
 Neda Daneshgar and Majid Sarmad.
 }
 \note{
-If you have not the non-ascii problem, you can set \code{Format} as \code{"R"}. 
+If you have not the non-ascii problem, you can set \code{Format} as \code{'R'}. 
 
-If ypu assign \code{Format} to \code{"Excel"}, it is necessary to bring two notes into consideration. The first note is that in order to use the created excel file for \code{\link{Evaluation1}} function, don't forget to use \code{\link{ExcelToR}} function to convert the excel file into required R format. The second note focouses on this:
-ocassionally, there is a problem with "openxlsx" package which is used in the function and it might be solved by  "installr::install.rtools() on Windows".
+If ypu assign \code{Format} to \code{'Excel'}, it is necessary to bring two notes into consideration. The first note is that in order to use the created excel file for \code{\link{Evaluation1}} function, don't forget to use \code{\link{ExcelToR}} function to convert the excel file into required R format. The second note focouses on this:
+ocassionally, there is a problem with 'openxlsx' package which is used in the function and it might be solved by  'installr::install.rtools() on Windows'.
 }
 \seealso{
-\code{\link{Evaluation1}}, \code{\link{ExcelToR}}
-}
+\code{\link{Evaluation1}}, \code{\link{ExcelToR}}, \code{\link{scan}}
+} 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \examples{
 \dontrun{
 
-cons.agn("http://www.um.ac.ir/~sarmad/word.a/source1.txt",
-          "http://www.um.ac.ir/~sarmad/word.a/target1.txt",
-           nrec = 5)
+cons.agn('http://www.um.ac.ir/~sarmad/word.a/source1.txt',
+          'http://www.um.ac.ir/~sarmad/word.a/target1.txt',
+           nrec = 5, encode.sorc = 'UTF-8')
 
-cons.agn("http://www.um.ac.ir/~sarmad/word.a/source1.txt",
-          "http://www.um.ac.ir/~sarmad/word.a/target1.txt", 
-           nrec = 5, Format = "Excel")
+cons.agn('http://www.um.ac.ir/~sarmad/word.a/source1.txt',
+          'http://www.um.ac.ir/~sarmad/word.a/target1.txt', 
+           nrec = 5, encode.sorc = 'UTF-8', Format = 'Excel')
 }
 }

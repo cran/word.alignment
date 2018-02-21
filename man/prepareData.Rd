@@ -8,9 +8,9 @@ Initial Preparations of Bitext before the Word Alignment and the Evaluation of W
 For a given Sentence-Aligned Parallel Corpus, it prepars sentence pairs as an input for \code{\link{word_alignIBM1}} and \code{\link{Evaluation1}} functions in this package.
 }
 \usage{
-prepareData(file1, file2, 
-           nrec = -1, minlen = 5, maxlen = 40, 
-           ul_s = FALSE, ul_t = TRUE, all = FALSE, 
+prepareData(file1, file2, nrec = -1, 
+	   encode.sorc = 'unknown', encode.trgt = 'unknown',
+           minlen = 5, maxlen = 40, all = FALSE, 
            removePt = TRUE, word_align = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -24,17 +24,17 @@ the name of target language file.
   \item{nrec}{
 the number of sentences to be read.If  -1, it considers all sentences.
 }
+\item{encode.sorc}{
+encoding to be assumed for the source language. If the value is "latin1" or "UTF-8" it is used to mark character strings as known to be in Latin-1 or UTF-8. For more details please see \code{\link{scan}} function.	 
+} 
+\item{encode.trgt}{
+encoding to be assumed for the target language. If the value is "latin1" or "UTF-8" it is used to mark character strings as known to be in Latin-1 or UTF-8. For more details please see \code{\link{scan}} function.	 
+} 
   \item{minlen}{
 a minimum length of sentences.
 }
   \item{maxlen}{
 a maximum length of sentences.
-}
-  \item{ul_s}{
-logical. If \samp{TRUE}, it will convert the first character of the source language's  sentences. When the source language is an Arabic script, it can be \samp{FALSE}.
-}
-  \item{ul_t}{
-logical. If \samp{TRUE}, it will convert the first character of the target language's  sentences. When the target language is a right-to-left, it can be \samp{FALSE}.
 }
  \item{all}{
 logical. If \samp{TRUE}, it considers the third argument (\samp{lower = TRUE}) in \code{\link{culf}} function.
@@ -76,7 +76,7 @@ Note that if there is a few proper nouns in the parallel corpus, we suggest you 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{Evaluation1}}, \code{\link{culf}}, \code{\link{word_alignIBM1}}
+\code{\link{Evaluation1}}, \code{\link{culf}}, \code{\link{word_alignIBM1}}, \code{\link{scan}}
 }
 \examples{
 # Since the extraction of  bg-en.tgz in Europarl corpus is time consuming, 
@@ -86,14 +86,14 @@ Note that if there is a few proper nouns in the parallel corpus, we suggest you 
 
 aa1 = prepareData ('http://www.um.ac.ir/~sarmad/word.a/euro.bg',
                    'http://www.um.ac.ir/~sarmad/word.a/euro.en', 
-                    nrec = 20, ul_s = TRUE)
+                    nrec = 20, encode.sorc = 'UTF-8')
  
 aa2 = prepareData ('http://www.um.ac.ir/~sarmad/word.a/euro.bg',
                    'http://www.um.ac.ir/~sarmad/word.a/euro.en', 
-                    nrec = 20, ul_s = TRUE, word_align = FALSE)
+                    nrec = 20, encode.sorc = 'UTF-8', word_align = FALSE)
                    
 aa3 = prepareData ('http://www.um.ac.ir/~sarmad/word.a/euro.bg',
                    'http://www.um.ac.ir/~sarmad/word.a/euro.en', 
-                    nrec = 20, ul_s = TRUE, removePt = FALSE)
+                    nrec = 20, encode.sorc = 'UTF-8', removePt = FALSE)
 }
 }

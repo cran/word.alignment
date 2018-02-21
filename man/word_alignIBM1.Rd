@@ -8,11 +8,12 @@ Computing One-to-Many Word Alignment Using IBM Model 1 for a Given Parallel Corp
 For a given sentence-aligned parallel corpus, it aligns words in each sentence pair. Moreover, it calculates the expected length and vocabulary size of each language (source and taget language) and also shows word translation probability as a data.table.
 }
 \usage{
-word_alignIBM1(file_train1, file_train2, 
-              nrec = -1, iter = 4, minlen = 5, maxlen = 40, 
-              ul_s = FALSE, ul_t = TRUE, removePt = TRUE, all = FALSE, 
+word_alignIBM1(file_train1, file_train2, nrec = -1, 
+              encode.sorc = 'unknown', encode.trgt = 'unknown',
+              iter = 5, minlen = 5, maxlen = 40, 
+              removePt = TRUE, all = FALSE, 
               dtfile_path = NULL, f1 = "fa", e1 = "en", 
-              result_file = "myResultIBM1", input = FALSE)
+              result_file = 'myResultIBM1', input = FALSE)
 
 \method{print}{alignment}(x, ...)
 }
@@ -27,6 +28,12 @@ the name of  target language file in training set.
   \item{nrec}{
 the number of sentences to be read. If  -1, it considers all sentences.
 }
+\item{encode.sorc}{
+encoding to be assumed for the source language. If the value is "latin1" or "UTF-8" it is used to mark character strings as known to be in Latin-1 or UTF-8. For more details please see \code{\link{scan}} function.	 
+} 
+\item{encode.trgt}{
+encoding to be assumed for the target language. If the value is "latin1" or "UTF-8" it is used to mark character strings as known to be in Latin-1 or UTF-8. For more details please see \code{\link{scan}} function.	 
+} 
   \item{iter}{
 the number of iterations for IBM Model 1.
 }
@@ -36,12 +43,6 @@ a minimum length of sentences.
   \item{maxlen}{
 a maximum length of sentences.
 }
-  \item{ul_s}{
-logical. If \code{TRUE}, it will convert the first character of the source language's  sentences. When the source language is an Arabic script, it should be \code{FALSE}.
-}
-  \item{ul_t}{
-logical. If \code{TRUE}, it will convert the first character of the target language's  sentences. When the target language is an Arabic script, it should be \code{FALSE}.
-}
   \item{removePt}{
 logical. If \code{TRUE}, it removes all punctuation marks.
 }
@@ -49,7 +50,7 @@ logical. If \code{TRUE}, it removes all punctuation marks.
 logical. If \code{TRUE}, it considers the third argument (\code{lower = TRUE}) in \code{\link{culf}} function.
 }
   \item{dtfile_path}{
-if \code{NULL} (usually for the first time), a data.table will be created contaning cross words of all sentences with their matched probabilities. It saves into a file named as a combination of \code{f1}, \code{e1}, \code{nrec} and \code{iter} as "f1.e1.nrec.iter.RData".
+if \code{NULL} (usually for the first time), a data.table will be created contaning cross words of all sentences with their matched probabilities. It saves into a file named as a combination of \code{f1}, \code{e1}, \code{nrec} and \code{iter} as 'f1.e1.nrec.iter.RData'.
 
 If specific file name is set, it will be read and continue the rest of the function, i.e. : finding the word alignments.
 }
@@ -66,7 +67,7 @@ the output results file name.
 logical. If \code{TRUE}, the output can be used by \code{\link{mydictionary}} and \code{\link{align_test.set}} functions.
 }
 \item{x}{
-an object of class \code{"alignment"}.
+an object of class \code{'alignment'}.
   }
   \item{\dots}{ further arguments passed to or from other methods. }
 }
@@ -78,9 +79,9 @@ The results depend on the corpus. As an example, we have used English-Persian pa
 \url{http://www.um.ac.ir/~sarmad/word.a/example_wordalignIBM1.pdf}
 }
 \value{
-\code{word_alignIBM1} returns an object of class \code{"alignment"}.
+\code{word_alignIBM1} returns an object of class \code{'alignment'}.
 
-An object of class \code{"alignment"} is a list containing the following components:
+An object of class \code{'alignment'} is a list containing the following components:
 
 If  \samp{input = TRUE}
  \item{dd1}{A data.table.}
@@ -124,7 +125,7 @@ corpus size.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{align_test.set}}, \code{\link{Symmetrization}}, \code{\link{mydictionary}}
+\code{\link{align_test.set}}, \code{\link{Symmetrization}}, \code{\link{mydictionary}}, \code{\link{scan}} 
 }
 \examples{
 # Since the extraction of  bg-en.tgz in Europarl corpus is time consuming, 
@@ -134,10 +135,10 @@ corpus size.
 
 w1 = word_alignIBM1 ('http://www.um.ac.ir/~sarmad/word.a/euro.bg',
                      'http://www.um.ac.ir/~sarmad/word.a/euro.en',
-                      nrec = 30, ul_s = TRUE)
+                      nrec = 30, encode.sorc = 'UTF-8')
                  
 w2 = word_alignIBM1 ('http://www.um.ac.ir/~sarmad/word.a/euro.bg',
                      'http://www.um.ac.ir/~sarmad/word.a/euro.en',
-                      nrec = 30, ul_s = TRUE, removePt = FALSE)
+                      nrec = 30, encode.sorc = 'UTF-8', removePt = FALSE)
 }
 }

@@ -1,15 +1,15 @@
 align_test.set<-
-function(file_train1, file_train2, tst.set_sorc, tst.set_trgt, nrec = -1,nlen = 215,  minlen1 = 5, maxlen1 = 40, minlen2 = 5, maxlen2 = 40, ul_s = FALSE, ul_t = TRUE, removePt = TRUE, all = FALSE, null.tokens = TRUE, iter = 3, f1 = 'fa', e1 = 'en', dtfile_path = NULL, file_align = "alignment")
+function(file_train1, file_train2, tst.set_sorc, tst.set_trgt, nrec = -1, nlen = -1,  encode.sorc = 'unknown', encode.trgt = 'unknown', minlen1 = 5, maxlen1 = 40, minlen2 = 5, maxlen2 = 40, removePt = TRUE, all = FALSE, null.tokens = TRUE, iter = 3, f1 = 'fa', e1 = 'en', dtfile_path = NULL, file_align = 'alignment')
 {
 g = fe = f = e = ge = c()   
    #------- constructing a data.table using word_alignIBM1 function for the first time
     if(is.null(dtfile_path))
     {
-        n = "yn"
-        while(n != "y" & n != "n")
-        n = readline("Are you sure that you want to run the word_alignIBM1 function (It takes time)? (y/ n: if you want to specify word alignment path, please press 'n'.)")
-        if (n == "y") {
-            dd1 = word_alignIBM1(file_train1,file_train2, iter = iter, nrec = nrec, minlen = minlen1, maxlen = maxlen1, ul_s = ul_s, ul_t = ul_t, input = TRUE, removePt = removePt, all = all)
+        n = 'yn'
+        while(n != 'y' & n != 'n')
+        n = readline('Are you sure that you want to run the word_alignIBM1 function (It takes time)? (y/ n: if you want to specify word alignment path, please press "n".)')
+        if (n == 'y') {
+            dd1 = word_alignIBM1(file_train1,file_train2, nrec = nrec, encode.sorc = encode.sorc, encode.trgt = encode.trgt, iter = iter, minlen = minlen1, maxlen = maxlen1, input = TRUE, removePt = removePt, all = all)
             save (dd1,file = paste(f1, e1, nrec, iter, 'RData', sep = '.'))
             cat(paste(getwd(), '/', f1,'.', e1,'.', nrec, '.', iter, '.RData',' created', '\n', sep=''))
         }else{
@@ -20,9 +20,9 @@ g = fe = f = e = ge = c()
     if(! is.null(dtfile_path))
     if (file.exists(dtfile_path)){
         load(dtfile_path)
-    }else{cat("Error: No such file or directory in dtfile_path.")}
+    }else{cat('Error: No such file or directory in dtfile_path.')}
     # -----------------
-    aa = prepareData (tst.set_sorc, tst.set_trgt, nrec = nlen, minlen = minlen2, maxlen = maxlen2, ul_s = ul_s, ul_t = ul_t, removePt = removePt, all = all, word_align = TRUE)
+    aa = prepareData (tst.set_sorc, tst.set_trgt, nrec = nlen, encode.sorc = encode.sorc, encode.trgt = encode.trgt, minlen = minlen2, maxlen = maxlen2, removePt = removePt, all = all, word_align = TRUE)
     
     aa = aa[[2]]
     
@@ -59,11 +59,11 @@ g = fe = f = e = ge = c()
     dd4[, ge := NULL]
     
     if (null.tokens) {
-        dd = "null"
+        dd = 'null'
     } else {
-        dd = "nolink"
+        dd = 'nolink'
     }
-    save(dd, dd4,file = paste(file_align, nrec, iter,'RData',sep='.'))
+    save(dd, dd4,file = paste(file_align, f1, e1, nrec, iter,'RData',sep='.'))
     
-    cat(file_align, '.', nrec, '.', iter, '.RData',' created','\n',sep='')
+    cat(file_align, '.', f1, '.', e1, '.', nrec, '.', iter, '.RData',' created','\n',sep='')
 }
