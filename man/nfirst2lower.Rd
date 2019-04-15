@@ -1,5 +1,5 @@
-\name{culf}
-\alias{culf}
+\name{nfirst2lower}
+\alias{nfirst2lower}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Make a String's First n Characters Lowercase
@@ -8,7 +8,7 @@ Make a String's First n Characters Lowercase
 Converts uppercase to lowercase letters for the first n characters  of a character string.
 }
 \usage{
-culf(x, n = 1, first = TRUE, second = FALSE, lower = FALSE)
+nfirst2lower(x, n = 1, first = TRUE, second = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -24,9 +24,7 @@ logical. If \code{TRUE}, it converts the n first characters into lowercase.
   \item{second}{
 logical. If \code{TRUE}, it checks if the second letter of \code{x} is uppercase, the whole word will be converted to lower.
 }
-  \item{lower}{
-logical. If \code{TRUE}, it works similar to \code{tolower} in base R.
-}
+  
 }
 \details{
 It is a function to convert some uppercase letters  into lowercase for which words with uppercase second letter. If \code{\link{tolower}} in base R is used, it will be sometimes created a problem for proper nouns. Because, as we know, a name or proper noun starts with capital letter and we do not want to convert them into lowercase. But sometimes there are some words which are not a name or proper noun and displayed in capital letters. These words are the target of this function.
@@ -62,18 +60,18 @@ In general, if there are not a lot of proper nouns in your text string, we sugge
 
 x=list('W-A for an English-Persian Parallel Corpus (Mizan).','ALIGNMENT is a link between words.')
 
-culf(x, n=8) ## culf(x, n=8) is not a list
+nfirst2lower(x, n=8) ## nfirst2lower(x, n=8) is not a list
 
 y='MT is the automatic translation. SMT is one of the methods of MT.'
 
-culf(y) # only run for the first sentence
+nfirst2lower(y) # only run for the first sentence
 
 u1=unlist(strsplit(y, ". ", fixed = TRUE))
-sapply(1:length(u1),function(x)culf(u1[x])) ## run for all sentences
+sapply(1:length(u1),function(x)nfirst2lower(u1[x])) ## run for all sentences
 
 h = 'It is a METHOD for this function.'
-culf (h, second = TRUE) #only run for the first word
+nfirst2lower (h, second = TRUE) #only run for the first word
 
 h1 = strsplit(h, ' ')[[1]]
-culf(h1, second = TRUE) # run for all words
+nfirst2lower(h1, second = TRUE) # run for all words
 }

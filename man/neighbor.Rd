@@ -1,5 +1,5 @@
-\name{squareN}
-\alias{squareN}
+\name{neighbor}
+\alias{neighbor}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Finding Neighborhood Locations
@@ -8,7 +8,7 @@ Finding Neighborhood Locations
 Starting with the intersection of ef and fe alignment one by one and finding the square neighbors including the union and intersection, recursively.
 }
 \usage{
-squareN(fe, ef, n_row)
+neighbor(fe, ef, n.row)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -18,7 +18,7 @@ an integer vector.
   \item{ef}{
 an integer vector.
 }
-  \item{n_row}{
+  \item{n.row}{
 an integer. Number of rows of an initial matrix. 
 }
 }
@@ -39,6 +39,6 @@ Neda Daneshgar and Majid Sarmad.
 \examples{
 fe = c(1,4,2,4,2)
 ef = c(3,2,1,5)
-n_row = 4
-squareN (fe, ef, n_row)
+n.row = 4
+neighbor (fe, ef, n.row)
 }

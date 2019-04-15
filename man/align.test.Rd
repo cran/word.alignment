@@ -1,5 +1,5 @@
-\name{align_test.set}
-\alias{align_test.set}
+\name{align.test}
+\alias{align.test}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Computing One-to-Many Word Alignment Using a Parallel Corpus for a Given Test Set 
@@ -8,87 +8,74 @@ Computing One-to-Many Word Alignment Using a Parallel Corpus for a Given Test Se
 For a given parallel corpus based on IBM Model 1, it aligns the words of a given sentence-aligned test set.
 }
 \usage{
-align_test.set(file_train1, file_train2, 
-              tst.set_sorc, tst.set_trgt, 
-              nrec = -1, nlen = -1, 
-              encode.sorc = 'unknown', encode.trgt = 'unknown',
-              minlen1 = 5, maxlen1 = 40, minlen2 = 5, maxlen2 = 40, 
-              removePt = TRUE, all = FALSE, null.tokens = TRUE, 
-              iter = 3, f1 = 'fa', e1 = 'en', 
-              dtfile_path = NULL, file_align = 'alignment')
+align.test(file.sorc, file.trgt, test.sorc, test.trgt, 
+           n.train = -1, n.test = -1, minlen.train = 5, maxlen.train = 40, 
+           minlen.test = 5, maxlen.test = 40, null.tokens = TRUE, 
+           dtfile.path = NULL, file.align = 'alignment',
+           name.sorc='f',name.trgt='e',iter = 3, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{file_train1}{
+  \item{file.sorc}{
 the name of source language file in training set.
 }
-  \item{file_train2}{
+  \item{file.trgt}{
 the name of  target language file in training set.
 }
-  \item{tst.set_sorc}{
+  \item{test.sorc}{
 the name of source language file in test set.
 }
-  \item{tst.set_trgt}{
+  \item{test.trgt}{
 the name of target language file in test set.
 }
-\item{nrec}{
+\item{n.train}{
 the number of sentences in the training set to be read. If  -1, it considers all sentences.
 }
-  \item{nlen}{
+  \item{n.test}{
 the number of sentences in the test set to be read. If  -1, it considers all sentences.
-}
-\item{encode.sorc}{
-encoding to be assumed for the source language. If the value is "latin1" or "UTF-8" it is used to mark character strings as known to be in Latin-1 or UTF-8. For more details please see \code{\link{scan}} function.	 
 } 
-\item{encode.trgt}{
-encoding to be assumed for the target language. If the value is "latin1" or "UTF-8" it is used to mark character strings as known to be in Latin-1 or UTF-8. For more details please see \code{\link{scan}} function.	 
-} 
- \item{minlen1}{
+ \item{minlen.train}{
 a minimum length of sentences in training set.
 }
-  \item{maxlen1}{
+  \item{maxlen.train}{
 a maximum length of sentences in training set.
 }
-  \item{minlen2}{
+  \item{minlen.test}{
 a minimum length of sentences in test set.
 }
-  \item{maxlen2}{
+  \item{maxlen.test}{
 a maximum length of sentences in test set.
-}
-  \item{removePt}{
-logical. If \code{TRUE}, it removes all punctuation marks.
-}
-  \item{all}{
-logical. If \code{TRUE}, it considers the third argument (\code{lower = TRUE}) in \code{\link{culf}} function.
 }
   \item{null.tokens}{
 logical. If \code{TRUE}, "null" is added at the first of each source sentence of the test set.
 }
-  \item{iter}{
-the number of  iterations for IBM Model 1.
-}
-  \item{f1}{
-it is a notation for the source language (default = \code{'fa'}).
-}
-  \item{e1}{
-it is a notation for the target language (default = \code{'en'}).
-}
-  \item{dtfile_path}{
-if \code{NULL} (usually for the first time), a data.table will be created contaning cross words of all sentences with their matched probabilities. It saves into a file named as a combination of \code{f1}, \code{e1}, \code{nrec} and \code{iter} as "f1.e1.nrec.iter.RData".
+\item{dtfile.path}{
+if \code{NULL} (usually for the first time), a data.table will be created contaning cross words of all sentences with their matched probabilities. It saves into a file named as a combination of \code{name.sorc}, \code{name.trgt}, \code{n} and \code{iter} as "f.e.n.iter.RData".
 
 If specific file name is set, it will be read and continue the rest of the function, i.e. : finding the word alignments for the test set.
 }
-  \item{file_align}{
+ \item{file.align}{
 the output results file name.
+}  
+  \item{name.sorc}{
+it is a notation for the source language (default = \code{'f'}).
 }
+  \item{name.trgt}{
+it is a notation for the target language (default = \code{'e'}).
+}
+ \item{iter}{
+the number of  iterations for IBM Model 1.
+}
+\item{...}{Further arguments to be passed to \code{prepare.data}.}
+ 
 }
 \details{
-If \code{dtfile_path = NULL}, the following question will be asked:
+If \code{dtfile.path = NULL}, the following question will be asked:
 
-"Are you sure that you want to run the word_alignIBM1 function (It takes time)? (Yes/ No: if you want to specify word alignment path, please press 'No'.)
+"Are you sure that you want to run the align.ibm1 function (It takes time)? (Yes/ No: if you want to specify word alignment path, please press 'No'.)
 }
 \value{
-an RData object as "file_align.nrec.iter.Rdata".
+an RData object as "file.align.n.iter.Rdata".
 %%  If it is a LIST, use
 %%  \item{comp1 }{Description of 'comp1'}
 %%  \item{comp2 }{Description of 'comp2'}
@@ -119,7 +106,7 @@ corpus size.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{word_alignIBM1}}, \code{\link{Evaluation1}}, \code{\link{scan}}
+\code{\link{align.ibm1}}, \code{\link{evaluation}}, \code{\link{scan}}
 }
 \examples{
 # Since the extraction of  bg-en.tgz in Europarl corpus is time consuming, 
@@ -129,10 +116,10 @@ corpus size.
 # test set.
 \dontrun{
 
-ats = align_test.set ('http://www.um.ac.ir/~sarmad/word.a/euro.bg',
+ats = align.test ('http://www.um.ac.ir/~sarmad/word.a/euro.bg',
                       'http://www.um.ac.ir/~sarmad/word.a/euro.en',  
                       'http://www.um.ac.ir/~sarmad/word.a/euro.bg',
                       'http://www.um.ac.ir/~sarmad/word.a/euro.en',
-                       nrec = 100,nlen = 5, encode.sorc = 'UTF-8',)               
+                       n.train = 100,n.test = 5, encode.sorc = 'UTF-8')               
 }
 }

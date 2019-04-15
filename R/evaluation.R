@@ -1,15 +1,15 @@
-Evaluation1 <-
-function(file_gold = 'gold.RData', file_align = 'alignment.-1.3.RData', agn = c('my.agn','an.agn'), alpha = 0.3)
+evaluation <-
+function(file.gold = 'gold.RData', file.align = 'alignment.-1.3.RData', agn = c('my.agn','an.agn'), alpha = 0.3)
 {
     date1 = as.POSIXlt (Sys.time(), 'Iran')
     e = f = g = fg1= fg = SP = dd = gfe = A = recall0 = n_AS = n_S = precision0 = n_AP = n_A = AER0 = c()
     
     agn = match.arg(agn)
     #------------------------Constructing a gold standard --------------------------
-    readline(paste('Please ensure that you create the file(s) by cons.agn function in this package and you fill the "',  file_align, '" file by "1|2" for sure|possible. Then press "Enter" to continue.', sep=''))
-    readline(paste('If you have an excel file, please convert it into required R format using ExcelToR function available in this package.\nThen press "Enter" to continue.', sep = ''))
+    readline(paste('Please ensure that you create the file(s) by cross.table function in this package and you fill the\n "',  file.align, '" file by "1|2" for sure|possible. Then press "Enter" to continue.', sep=''))
+    readline(paste('If you have an excel file, please convert it into required RData format using excel2rdata function available in this package.\nThen press "Enter" to continue.', sep = ''))
     
-    load(file = file_gold)
+    load(file = file.gold)
     null1 = fg1
     
     len = length(fg)
@@ -30,10 +30,10 @@ function(file_gold = 'gold.RData', file_align = 'alignment.-1.3.RData', agn = c(
     
     rm(dd3)
     gc()
-    #----- computing word alignment based on my IBM model1 using word_alignIBM1 function -----
+    #----- computing word alignment based on my IBM model1 using align.ibm1 function -----
     if(agn == 'my.agn')
     {
-        load(file = file_align)
+        load(file = file.align)
         
         if (dd != null1) {
             return(paste("Error: gold standard alignment and word alignment must be the same. But, the gold is including " , null1, " and the alignment is containing ", dd, ".", sep=''))
@@ -50,9 +50,10 @@ function(file_gold = 'gold.RData', file_align = 'alignment.-1.3.RData', agn = c(
     #-------------- reading computed word alignment using another software ---------------
     if (agn == 'an.agn')
     {
-        readline(paste('Please ensure that you create the file(s) by cons.agn function in this package and you fill the",  file_align, "file by "1|2" for sure|possible. Then press "Enter" to continue.\nIf you have an excel file, please convert it into required R format using ExcelToR function available in this package. Then press "Enter" to continue.', sep = ''))
-        
-        load(file = file_align)
+        readline(paste('Please ensure that you create the file(s) by cross.table function in this package and you fill the\n",  file.align, "file by "1|2" for sure|possible. Then press "Enter" to continue.',sep=''))
+        readline(paste('If you have an excel file, please convert it into required RData format using excel2rdata function available in this package. \nThen press "Enter" to continue.', sep = ''))
+    
+        load(file = file.align)
         
         if (fg1 != null1){
             return(paste("Error: gold standard alignment and word alignment must be the same. But, the gold is including " , null1, " and the alignment is containing ", dd, ".", sep=''))
@@ -112,7 +113,7 @@ function(file_gold = 'gold.RData', file_align = 'alignment.-1.3.RData', agn = c(
     
     date2 = as.POSIXlt (Sys.time(), "Iran")
     #############################################################
-    list2 = list(time = date2 - date1, Recall = recall, Precision = precision, AER = AER, F_measure.PS = F_measure.PS, F_measure.S = F_measure.S)
+    list2 = list(time = date2 - date1, Recall = recall, Precision = precision, AER = 1 - AER, F_measure.PS = F_measure.PS, F_measure.S = F_measure.S)
     #############################################################
     return(list2)
 }

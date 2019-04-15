@@ -1,5 +1,5 @@
-\name{Evaluation1}
-\alias{Evaluation1}
+\name{evaluation}
+\alias{evaluation}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Evaluation of Word Alignment Quality
@@ -8,20 +8,20 @@ Evaluation of Word Alignment Quality
 It measures Precision, Recall, AER, and F_measurs metrics to evaluate the quality of word alignment.
 }
 \usage{
-Evaluation1(file_gold = 'gold.RData', 
-            file_align = 'alignment.-1.3.RData',
-	    agn = c('my.agn', 'an.agn'), alpha = 0.3)
+evaluation(file.gold = 'gold.RData', 
+           file.align = 'alignment.-1.3.RData', 
+           agn = c('my.agn','an.agn'), alpha = 0.3)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{file_gold}{
+  \item{file.gold}{
 the gold standarad file name.}
   
-  \item{file_align}{
+  \item{file.align}{
 the alignment file name.
 }
 \item{agn}{
-character string including two values. If \code{"my.agn"}, the user wants to evaluate one-to-many word alignment using the \code{word_alignIBM1} function in this package. If \code{"an.agn"}, the user wants to evaluate word alignment results which are obtained by another software.
+character string including two values. If \code{"my.agn"}, the user wants to evaluate one-to-many word alignment using the \code{align.ibm1} function in this package. If \code{"an.agn"}, the user wants to evaluate word alignment results which are obtained by another software.
 }
   \item{alpha}{
 is a parameter that sets the trade-off between Precision and Recall.
@@ -29,7 +29,7 @@ is a parameter that sets the trade-off between Precision and Recall.
 }
 \details{
 To evaluate word alignment quality, we need to a "reference alignment" (a gold standard for the word alignment) of a test set.
-In order to read the gold into R format and to compare it with the word alignment results, the gold standard file name must be set in \code{file_gold}. 
+In order to read the gold into RData format and to compare it with the word alignment results, the gold standard file name must be set in \code{file.gold}. 
 }
 \value{
 A list.
@@ -58,5 +58,5 @@ Neda Daneshgar and Majid Sarmad.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{cons.agn}}, \code{\link{align_test.set}}, \code{\link{word_alignIBM1}}
+\code{\link{cross.table}}, \code{\link{align.test}}, \code{\link{align.ibm1}}
 }

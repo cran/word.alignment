@@ -6,21 +6,21 @@
 Computing Word Alignment Using IBM Model 1 (and Symmetrization) for a Given Parallel Corpus and Its Evaluation
 }
 \description{
-For a given Sentence-Aligned Parallel Corpus, it aligns words for each sentence pair. It considers one-to-many alignment in the function \code{\link{word_alignIBM1}}  and symmetric word alignment in the function \code{\link{Symmetrization}}. Moreover, it evaluates the quality of word alignment from \code{\link{word_alignIBM1}} function or from some other software in the function \code{\link{Evaluation1}}. It also builds an automatic bilingual dictionary of two languages using the given corpus in the function \code{\link{mydictionary}}.
+For a given Sentence-Aligned Parallel Corpus, it aligns words for each sentence pair. It considers one-to-many alignment in the function \code{\link{align.ibm1}}  and symmetric word alignment in the function \code{\link{align.symmet}}. Moreover, it evaluates the quality of word alignment from \code{\link{align.ibm1}} function or from some other software in the function \code{\link{evaluation}}. It also builds an automatic bilingual dictionary of two languages using the given corpus in the function \code{\link{bidictionary}}.
 }
 \details{
 \tabular{ll}{
 Package: \tab word.alignment\cr
 Type: \tab Package\cr
-Version: \tab 1.0.9\cr
-Date: \tab 2018-02-19\cr
+Version: \tab 1.1\cr
+Date: \tab 2019-04-04\cr
 License: \tab GPL (>= 2)\cr
 }
 }
 \author{
 Neda Daneshgar and Majid Sarmad.
 
-Maintainer: Neda Daneshgar <ne_da978@stu-mail.um.ac.ir>
+Maintainer: Neda Daneshgar<ne_da978@stu-mail.um.ac.ir>
 }
 \references{
 Fraser F., Marcu D. (2007), "Measuring Word Alignment Quality for
@@ -51,12 +51,12 @@ Wang X. "Evaluation of Two Word Alignment Systems.", Final Thesis, Department of
 
 \dontrun{
 
-ww = word_alignIBM1 ('http://www.um.ac.ir/~sarmad/word.a/euro.bg',
+ww = align.ibm1 ('http://www.um.ac.ir/~sarmad/word.a/euro.bg',
                      'http://www.um.ac.ir/~sarmad/word.a/euro.en',
-                      nrec=2000, encode.sorc = 'UTF-8')
+                      n=2000, encode.sorc = 'UTF-8')
 
-ss = Symmetrization ('http://www.um.ac.ir/~sarmad/word.a/euro.bg',
+ss = align.symmet ('http://www.um.ac.ir/~sarmad/word.a/euro.bg',
                      'http://www.um.ac.ir/~sarmad/word.a/euro.en',
-                      nrec = 50, encode.sorc = 'UTF-8')
+                      n = 50, encode.sorc = 'UTF-8')
 }
 }
